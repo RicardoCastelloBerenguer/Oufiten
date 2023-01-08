@@ -1,10 +1,14 @@
 <template>
-<h1>Dashboard Form</h1>
+    <p>Dashboard</p>
 </template>
 
 <script>
+
+import AppLayout from "../components/AppLayout.vue";
+
 export default {
-    name: "Login"
+    name: "Dashboard",
+    components: {AppLayout}
 }
 </script>
 
