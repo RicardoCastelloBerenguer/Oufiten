@@ -35,17 +35,24 @@
                             <ChevronDownIcon class="ml-2 -mr-1 w-5 text-black hover:text-indigo-900"/>
                         </MenuButton>
                     </div>
-                    <transition enter-active-class="transition ease-out duration-100" enter-from-class="transform opacity-0 scale-95" enter-to-class="transform opacity-100 scale-100" leave-active-class="transition ease-in duration-75" leave-from-class="transform opacity-100 scale-100" leave-to-class="transform opacity-0 scale-95">
-                        <MenuItems class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                            <MenuItem v-slot="{ active }">
-                                <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Your Profile</a>
-                            </MenuItem>
-                            <MenuItem v-slot="{ active }">
-                                <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Settings</a>
-                            </MenuItem>
-                            <MenuItem v-slot="{ active }">
-                                <a href="#" :class="[active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700']">Sign out</a>
-                            </MenuItem>
+                    <transition enter-active-class="transition ease-out duration-100"
+                                enter-from-class="transform opacity-0 scale-95"
+                                enter-to-class="transform opacity-100 scale-100"
+                                leave-active-class="transition ease-in duration-75"
+                                leave-from-class="transform opacity-100 scale-100"
+                                leave-to-class="transform opacity-0 scale-95">
+                        <MenuItems class="absolute right-0 mt-2 w-36 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                            <div class="px-1 py-1">
+                                <MenuItem v-slot="{ active }">
+                                    <button :class="[active ? 'bg-indigo-600 text-white' : 'text-gray-900','group flex w-full items-center rounded-md px-2 py-2 text-sm',]"><UserIcon class="w-5 mr-5"/>Profile</button>
+                                </MenuItem>
+                                <MenuItem v-slot="{ active }">
+                                    <button :class="[active ? 'bg-indigo-600 text-white' : 'text-gray-900','group flex w-full items-center rounded-md px-2 py-2 text-sm',]"><Cog6ToothIcon class="w-5 mr-5"/>Settings</button>
+                                </MenuItem>
+                                <MenuItem v-slot="{ active }">
+                                    <button @click="logout" :class="[active ? 'bg-indigo-600 text-white' : 'text-gray-900','group flex w-full items-center rounded-md px-2 py-2 text-sm',]"><ArrowLeftOnRectangleIcon class="w-5 mr-5"/> Sign Out</button>
+                                </MenuItem>
+                            </div>
                         </MenuItems>
                     </transition>
                 </Menu>
@@ -63,7 +70,9 @@
 
 <script setup>
 import { Disclosure, DisclosureButton, DisclosurePanel, Menu, MenuButton, MenuItem, MenuItems } from '@headlessui/vue'
-import { Bars3Icon, BellIcon, XMarkIcon,ChevronDownIcon } from '@heroicons/vue/24/outline'
+import { Bars3Icon, BellIcon, XMarkIcon,ChevronDownIcon,UserIcon,ArrowLeftOnRectangleIcon,Cog6ToothIcon } from '@heroicons/vue/24/outline'
+import store from "../store/index.js";
+import router from "../router/index.js";
 
 const emit = defineEmits(['toggleSidebar']);
 
@@ -73,5 +82,12 @@ const navigation = [
     { name: 'Projects', href: '#', current: false },
     { name: 'Calendar', href: '#', current: false },
 ]
+
+function logout()
+{
+    store.dispatch('logout').then(() => {
+        router.push({name:'login'})
+    });
+}
 
 </script>

@@ -19,6 +19,7 @@
 import SideBar from "./SideBar.vue";
 import NavBar from "./NavBar.vue";
 import {ref, onMounted , onUnmounted} from "vue";
+import store from "../store/index.js";
 
 const sidebarOpened = ref(true);
 
@@ -28,6 +29,7 @@ function toggleSidebar(){
 }
 
 onMounted(() => {
+    store.dispatch('getUser');
     handleResize();
     window.addEventListener('resize', handleResize);
 })

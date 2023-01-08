@@ -32,17 +32,26 @@ const routes = [
     {
         path:'/login',
         name:'login',
-        component:Login
+        component:Login,
+        meta: {
+            requiresGuest: true
+        }
     },
     {
         path:'/request-password',
         name:'requestPassword',
-        component:RequestPassword
+        component:RequestPassword,
+        meta: {
+            requiresGuest: true
+        }
     },
     {
         path:'/reset-password/token',
         name:'ResetPassword',
-        component:ResetPassword
+        component:ResetPassword,
+        meta: {
+            requiresGuest: true
+        }
     },
     {
         path:'/:pathMatch(.*)',
