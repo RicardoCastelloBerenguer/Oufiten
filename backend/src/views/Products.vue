@@ -1,5 +1,5 @@
 <template>
-    <SideBar><h1>Products</h1></SideBar>
+    <h1>Products</h1>
 </template>
 
 <script>
