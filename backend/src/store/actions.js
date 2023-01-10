@@ -23,3 +23,23 @@ export function getUser({commit},data)
     }))
 }
 
+export function getProducts({commit} , {url = null,search='',perPage,sortBy,order})
+{
+    commit('setProducts', [true]);
+    url = url || '/products'
+    return axiosClient.get(url,{
+        params:{
+            search,
+            per_page:perPage,
+            sortBy,
+            order
+        }
+    })
+        .then((res =>{
+        commit('setProducts', [false,res.data]);
+    })).catch((error) => {
+        console.log(error)
+        commit('setProducts', [false]);
+    })
+}
+

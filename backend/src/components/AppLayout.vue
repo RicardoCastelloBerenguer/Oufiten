@@ -1,13 +1,12 @@
 <template>
-    <div v-if="currentUser?.id" class="min-h-full flex">
-
-        <SideBar :class="{'-ml-[180px]' : !sidebarOpened}" class="transition-all duration-300"></SideBar>
+    <div v-if="currentUser?.id" class="flex">
+        <SideBar :class="{'-ml-[180px]' : !sidebarOpened}" class="min-h-screen transition-all duration-300"></SideBar>
 
         <div class="flex-1">
             <header class="h-16 shadow bg-white">
                 <nav-bar @toggle-sidebar="toggleSidebar"></nav-bar>
             </header>
-            <main>
+            <main class="m-5 text-left">
                 <router-view></router-view>
             </main>
         </div>

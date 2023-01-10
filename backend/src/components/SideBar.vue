@@ -1,6 +1,6 @@
 <template>
     <div class="flex">
-        <div class="transition-all flex flex-col h-screen p-3 bg-indigo-600 shadow w-[180px]">
+        <div class="transition-all flex flex-col p-3 bg-indigo-600 shadow w-[180px]">
             <div class="space-y-3 text-white">
                 <div class="flex-1 ">
                     <ul class="pt-2 pb-4 space-y-1 text-sm">
