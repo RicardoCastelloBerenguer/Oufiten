@@ -36,7 +36,7 @@
                 <tr v-for="(product,index) of products.data"  :style="{'animation-delay': `${index*0.1}s`}">
                     <td class="border-b p-2">{{product.id}}</td>
                     <td class="border-b p-2">
-                        <img class="w-16 h-16 object-cover" :src="product.image_url" :alt="product.title">
+                        <img class="w-24 h-24 object-cover" :src="product.image_url" :alt="product.title">
                     </td>
                     <td class="border-b p-2 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis">{{ product.title }}</td>
                     <td class="border-b p-2">{{product.price}}</td>

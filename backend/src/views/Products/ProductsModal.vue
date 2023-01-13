@@ -135,12 +135,9 @@ function onSubmit(){
             if(response.status == 201){
                 console.log("okey");
                 //TODO showNotification
-                store.dispatch('getProducts' , {
-                    perPage:10,
-                    sortBy : 'updated_at',
-                    order : 'asc'
-                });
+                store.dispatch('getProducts');
                 closeModal();
+                emit('close');
             }
         }).catch(error => {
             //TODO showNotification
