@@ -1,6 +1,6 @@
 <template>
     <th @click="emit('orderProductsBy',field)" class="float align-items-center border-b-2 p-2 text-left cursor-pointer bg-gray-100"
-        :class="field == sortBy ? 'bg-indigo-400' : ''">
+        :class="field == sortBy ? 'bg-indigo-600 text-white' : ''">
         <slot></slot>
         <div v-if="sortBy == field" class="ml-2">
             <ArrowUpIcon v-if="order=='asc'" class="float-right h-6 w-6"/>
