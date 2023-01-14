@@ -9,6 +9,7 @@ export function setToken(state,token){
     else{
         sessionStorage.removeItem('TOKEN');
     }
+    debugger;
 }
 
 export function setProducts(state,[loading,response= null]){
