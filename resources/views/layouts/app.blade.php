@@ -24,6 +24,8 @@
     {{ $slot }}
 </main>
 
+
+
 <!-- Toast -->
 <div
     x-data="toast"

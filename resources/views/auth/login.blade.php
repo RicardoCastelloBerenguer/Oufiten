@@ -14,6 +14,8 @@
             >
         </p>
         <x-auth-validation-errors class="mb-4" :errors="$errors"></x-auth-validation-errors>
+        <!-- Session Status -->
+        <x-auth-session-status class="mb-4" :status="session('status')" />
         <div class="mb-4">
             <x-input
                 id="loginEmail"
@@ -51,10 +53,4 @@
             Login
         </button>
     </form>
-
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-
-
 </x-app-layout>
