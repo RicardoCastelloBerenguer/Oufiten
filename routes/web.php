@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProfileControllerDelete;
@@ -31,9 +33,20 @@ Route::middleware(['guestOrVerified'])->group(function (){
 
 
 Route::middleware(['auth', 'verified'])->group(function() {
+    //PERFIL
     Route::get('/profile', [ProfileController::class, 'view'])->name('profile');
     Route::post('/profile', [ProfileController::class, 'store'])->name('profile.update');
     Route::post('/profile/update-password', [ProfileController::class, 'updatePassword'])->name('profile.updatePassword');
+
+    //PAGOS
+    Route::post('/payment', [PaymentController::class,'payment'])->name('cart.payment');
+    Route::get('/payment/success', [PaymentController::class,'success'])->name('payment.success');
+    Route::get('/payment/cancel', [PaymentController::class,'cancel'])->name('payment.cancel');
+    Route::get('/payment/cancel', [PaymentController::class,'cancel'])->name('payment.cancel');
+
+    //PEDIDOS
+    Route::get('/orders', [OrdersController::class,'index'])->name('orders.index');
+
 });
 
 

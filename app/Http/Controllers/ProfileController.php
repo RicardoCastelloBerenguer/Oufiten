@@ -31,7 +31,6 @@ class ProfileController extends Controller
         $shippingData = $customerData['shipping'];
         $billingData = $customerData['billing'];
 
-
         /** @var \App\Models\User $user */
         $user = $request->user();
         /** @var \App\Models\Customer $customer */
@@ -39,25 +38,25 @@ class ProfileController extends Controller
 
         $customer->update($customerData);
 
-        if($customer->shippingAddress){
+        if ($customer->shippingAddress) {
             $customer->shippingAddress->update($shippingData);
-        }
-        else{
+        } else {
+            $shippingData['customer_id'] = $customer->user_id;
             $shippingData['type'] = AddressType::Shipping->value;
-            CustomerAddress::create([$shippingData]);
+            CustomerAddress::create($shippingData);
         }
-        if($customer->billingAddres){
-            $customer->billingAddres->update($billingData);
-        }
-        else{
-
+        if ($customer->billingAddress) {
+            $customer->billingAddress->update($billingData);
+        } else {
+            $billingData['customer_id'] = $customer->user_id;
             $billingData['type'] = AddressType::Billing->value;
-            CustomerAddress::create([$billingData]);
+            CustomerAddress::create($billingData);
         }
 
-        $request->session()->flash('flash_message','Perfil actualizado correctamente.');
+        $request->session()->flash('flash_message', 'Profile was successfully updated.');
 
         return redirect()->route('profile');
+
     }
     public function updatePassword(PasswordUpdateRequest $request){
         /** @var \App\Models\User $user */
