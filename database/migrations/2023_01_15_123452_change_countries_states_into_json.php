@@ -13,7 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::table('countries',function (Blueprint $table){
+            $table->dropColumn('community');
+        });
+        Schema::table('countries',function (Blueprint $table){
+            $table->json('community')->nullable();
+        });
     }
 
     /**
@@ -23,6 +28,11 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('countries',function (Blueprint $table){
+            $table->dropColumn('community');
+        });
+        Schema::table('countries',function (Blueprint $table){
+            $table->text('community')->nullable();
+        });
     }
 };
