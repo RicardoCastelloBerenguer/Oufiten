@@ -127,9 +127,12 @@ class PaymentController extends Controller
 
             $order->update();
 
-
-            if(!$_GET['resume'])
-            CartItem::query()->where('user_id','=', $user->id)->delete();
+            if(isset($_GET['resume'])){
+                if(!$_GET['resume'])
+                    CartItem::query()->where('user_id','=', $user->id)->delete();
+            }
+            else
+                CartItem::query()->where('user_id','=', $user->id)->delete();
 
             return view('payment.success' , compact('session' , 'customer'));
         }catch (\Exception $e){
