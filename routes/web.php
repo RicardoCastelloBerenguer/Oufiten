@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\CartController;
-use App\Http\Controllers\OrdersController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -42,10 +42,11 @@ Route::middleware(['auth', 'verified'])->group(function() {
     Route::post('/payment', [PaymentController::class,'payment'])->name('cart.payment');
     Route::get('/payment/success', [PaymentController::class,'success'])->name('payment.success');
     Route::get('/payment/cancel', [PaymentController::class,'cancel'])->name('payment.cancel');
-    Route::get('/payment/cancel', [PaymentController::class,'cancel'])->name('payment.cancel');
+    Route::post('/payment/{order}', [PaymentController::class,'resumeOrderPayment'])->name('payment.resumeOrderPayment');
 
     //PEDIDOS
-    Route::get('/orders', [OrdersController::class,'index'])->name('orders.index');
+    Route::get('/orders', [OrderController::class,'index'])->name('orders.index');
+    Route::get('/orders/view/:order', [OrderController::class,'view'])->name('orders.view');
 
 });
 
