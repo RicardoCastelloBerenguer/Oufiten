@@ -2,7 +2,6 @@
 
     <div class="container lg:w-2/3 xl:w-2/3 mx-auto">
         <h1 class="text-3xl font-bold mb-6">My Orders</h1>
-
         <div class="bg-white p-3 rounded-md shadow-md">
             <table class="table table-auto w-full">
                 <thead class="border-b-2">
@@ -19,10 +18,10 @@
                 <tr class="border-b">
                     <td>
                         <a
-                            href="{{route('orders.view')}}"
+                            href="{{route('orders.view' , $order)}}"
                             class="text-purple-600 hover:text-purple-500"
                         >
-                            {{$order->id}}
+                            #{{$order->id}}
                         </a>
                     </td>
                     <td>{{$order->created_at}}</td>
@@ -134,6 +133,10 @@
                 </tbody>
             </table>
         </div>
+        <div class="mt-2">
+            {{$orders->links()}}
+        </div>
+
     </div>
 
 </x-app-layout>

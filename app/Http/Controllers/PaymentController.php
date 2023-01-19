@@ -89,6 +89,8 @@ class PaymentController extends Controller
 
         Payment::create($paymentData);
 
+        CartItem::query()->where('user_id','=', $user->id)->delete();
+
         return redirect($checkout_session->url);
     }
 
@@ -112,9 +114,9 @@ class PaymentController extends Controller
 
             if(!$payment)
                 return view('payment.cancel',['message' => 'El pago no existe']);
-            else if ($payment->status!=PaymentStatus::Pending->value){
+            else if ($payment->status==PaymentStatus::Paid->value){
                 //return view('payment.success');
-                return view('payment.cancel',['message' => 'Este pago ya se  completado, gracias por su compra']);
+                return view('payment.success' , compact('session' , 'customer'));
             }
 
             $payment->status=PaymentStatus::Paid;
@@ -126,13 +128,6 @@ class PaymentController extends Controller
             $order->status = OrderStatus::Paid;
 
             $order->update();
-
-            if(isset($_GET['resume'])){
-                if(!$_GET['resume'])
-                    CartItem::query()->where('user_id','=', $user->id)->delete();
-            }
-            else
-                CartItem::query()->where('user_id','=', $user->id)->delete();
 
             return view('payment.success' , compact('session' , 'customer'));
         }catch (\Exception $e){
@@ -170,7 +165,7 @@ class PaymentController extends Controller
         $checkout_session = $stripe->checkout->sessions->create([
             'line_items' => $lineItems,
             'mode' => 'payment',
-            'success_url' => route('payment.success',[],'yes').'?session_id={CHECKOUT_SESSION_ID}&resume=true',
+            'success_url' => route('payment.success',[],'yes').'?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('payment.cancel',[],'yes'),
             'customer_creation' => 'always'
         ]);
@@ -182,5 +177,76 @@ class PaymentController extends Controller
         $payment->update();
 
         return redirect($checkout_session->url);
+    }
+
+    public function webhook(Request $request)
+    {
+
+        // webhook.php
+        //
+        // Use this sample code to handle webhook events in your integration.
+        //
+        // 1) Paste this code into a new file (webhook.php)
+        //
+        // 2) Install dependencies
+        //   composer require stripe/stripe-php
+        //
+        // 3) Run the server on http://localhost:4242
+        //   php -S localhost:4242
+
+
+
+        // This is your Stripe CLI webhook secret for testing your endpoint locally.
+        $endpoint_secret = 'whsec_45862b3ad4e5fa9632d3b4d787392f0e511b5b582f26ef3ff7f46557a98a3416';
+
+        $payload = @file_get_contents('php://input');
+        $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
+        $event = null;
+
+        try {
+            $event = \Stripe\Webhook::constructEvent(
+                $payload, $sig_header, $endpoint_secret
+            );
+        } catch (\UnexpectedValueException $e) {
+            // Invalid payload
+            return response('' , 401);
+        } catch (\Stripe\Exception\SignatureVerificationException $e) {
+            // Invalid signature
+            return response('' , 402);
+        }
+
+// Handle the event
+        switch ($event->type) {
+            case 'checkout.session.completed':
+
+                $paymentIntent = $event->data->object;
+                $session = $paymentIntent;
+
+                /** @var \App\Models\Payment $payment */
+                $payment = Payment::query()->where(['session_id' => $session->id])->first();
+
+                if(!$payment)
+                    return view('payment.cancel',['message' => 'El pago no existe']);
+                else if ($payment->status==PaymentStatus::Paid->value){
+                    //return view('payment.success');
+                    return view('payment.cancel',['message' => 'Este pago ya se completó, gracias por su compra']);
+                }
+
+                $payment->status=PaymentStatus::Paid;
+
+                $payment->update();
+
+                $order = $payment->order;
+
+                $order->status = OrderStatus::Paid;
+
+                $order->update();
+
+            // ... handle other event types
+            default:
+                echo 'Received unknown event type ' . $event->type;
+        }
+
+        return response('' , 200);
     }
 }

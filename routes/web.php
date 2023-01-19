@@ -46,14 +46,12 @@ Route::middleware(['auth', 'verified'])->group(function() {
 
     //PEDIDOS
     Route::get('/orders', [OrderController::class,'index'])->name('orders.index');
-    Route::get('/orders/view/:order', [OrderController::class,'view'])->name('orders.view');
+    Route::get('/orders/view/{order}', [OrderController::class,'view'])->name('orders.view');
 
 });
 
-
-Route::get('/products', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+//WEBHOOK STRIPE
+Route::post('/webhook/stripe' , [PaymentController::class,'webhook']);
 
 
 
