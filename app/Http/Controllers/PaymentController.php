@@ -6,13 +6,16 @@ use App\Enums\OrderStatus;
 use App\Enums\PaymentStatus;
 use App\Enums\PaymentType;
 use App\Http\Helpers\Cart;
+use App\Mail\NewOrderEmail;
 use App\Models\CartItem;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Payment;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Mail;
 
 class PaymentController extends Controller
 {
@@ -129,6 +132,9 @@ class PaymentController extends Controller
 
             $order->update();
 
+            $adminUsers = User::where('is_admin',1)->get();
+            Mail::to($adminUsers)->send(new newOrderEmail($order));
+
             return view('payment.success' , compact('session' , 'customer'));
         }catch (\Exception $e){
             return view('payment.cancel',['message' => $e->getMessage()]);
@@ -181,23 +187,8 @@ class PaymentController extends Controller
 
     public function webhook(Request $request)
     {
-
-        // webhook.php
-        //
-        // Use this sample code to handle webhook events in your integration.
-        //
-        // 1) Paste this code into a new file (webhook.php)
-        //
-        // 2) Install dependencies
-        //   composer require stripe/stripe-php
-        //
-        // 3) Run the server on http://localhost:4242
-        //   php -S localhost:4242
-
-
-
         // This is your Stripe CLI webhook secret for testing your endpoint locally.
-        $endpoint_secret = 'whsec_45862b3ad4e5fa9632d3b4d787392f0e511b5b582f26ef3ff7f46557a98a3416';
+        $endpoint_secret = env('WEBHOOK_SECRET_KEY');
 
         $payload = @file_get_contents('php://input');
         $sig_header = $_SERVER['HTTP_STRIPE_SIGNATURE'];
@@ -241,6 +232,9 @@ class PaymentController extends Controller
                 $order->status = OrderStatus::Paid;
 
                 $order->update();
+
+                $adminUsers = User::where('is_admin',1)->get();
+                Mail::to($adminUsers)->send(new newOrderEmail($order));
 
             // ... handle other event types
             default:

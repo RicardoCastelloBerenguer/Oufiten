@@ -3,7 +3,7 @@
         <div class="flex justify-between border-b-2 pb-3">
             <div class="flex items-center">
                 <span class="whitespace-nowrap mr-3">Per Page</span>
-                <select @change="getProducts(null)" v-model="perPage"
+                <select @change="getOrders(null)" v-model="perPage"
                         class="appaerance-none relative block w-24 px-3 py-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">">
                     <option selected value="5" >5</option>
                     <option value="10">10</option>
@@ -13,34 +13,32 @@
                 </select>
             </div>
             <div>
-                <input v-model="search" @change="getProducts(null)"
+                <input v-model="search" @change="getOrders(null)"
                        placeholder="Type to Search..."
                        class=" border-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
         </div>
-        <LoadingSpiner v-if="products.loading" class="mt-8 justify-center"/>
+        <LoadingSpiner v-if="orders.loading" class="mt-8 justify-center"/>
         <template v-else>
-           <table class="table-auto w-full">
+            <table class="table-auto w-full">
                 <thead>
                 <tr>
                     <TableHead @orderProductsBy="sortProducts" field="id" :order="order" :sortBy="sortBy">Id</TableHead>
-                    <TableHead field="" :order="order" :sortBy="sortBy">Image</TableHead>
-                    <TableHead @orderProductsBy="sortProducts" field="title" :order="order" :sortBy="sortBy">Title</TableHead>
-                    <TableHead @orderProductsBy="sortProducts" field="price" :order="order" :sortBy="sortBy">Price</TableHead>
-                    <TableHead @orderProductsBy="sortProducts" field="updated_at" :order="order" :sortBy="sortBy">Updated At</TableHead>
-                    <TableHead :order="order" :sortBy="sortBy" field=""> Actions </TableHead>
+                    <TableHead @orderProductsBy="sortProducts" field="total_price" :order="order" :sortBy="sortBy">Precio Total</TableHead>
+                    <TableHead @orderProductsBy="sortProducts" field="created_at" :order="order" :sortBy="sortBy">Hora del Pedido</TableHead>
+                    <TableHead :order="order" :sortBy="sortBy">Estado</TableHead>
+                    <TableHead :order="order" :sortBy="sortBy">Cliente</TableHead>
+                    <TableHead :order="order" :sortBy="sortBy" field=""> Acciones </TableHead>
                 </tr>
                 </thead>
                 <tbody>
                 <!--class="animate-fade-in-down"!-->
-                <tr v-for="(product,index) of products.data"  :style="{'animation-delay': `${index*0.1}s`}">
-                    <td class="border-b p-2">{{product.id}}</td>
-                    <td class="border-b p-2">
-                        <img class="w-24 h-24 object-cover" :src="product.image_url" :alt="product.title">
-                    </td>
-                    <td class="border-b p-2 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis">{{ product.title }}</td>
-                    <td class="border-b p-2">{{product.price}}</td>
-                    <td class="border-b p-2">{{product.updated_at}}</td>
+                <tr v-for="(order,index) of orders.data"  :style="{'animation-delay': `${index*0.1}s`}">
+                    <td class="border-b p-2">{{order.id}}</td>
+                    <td class="border-b p-2">{{order.total_price}}</td>
+                    <td class="border-b p-2">{{order.updated_at}}</td>
+                    <td class="border-b p-2" ><span :class="order.status == 'paid' ? 'bg-green-300' : 'bg-gray-300'">{{order.status}}</span></td>
+                    <td class="border-b p-2" >{{order.user.name}}</td>
                     <td class="border-b p-2">
                         <Menu as="div" class="relative inline-block text-left">
                             <div>
@@ -68,20 +66,16 @@
                                 >
                                     <div class="px-1 py-1">
                                         <MenuItem v-slot="{ active }">
-                                            <button
-                                                :class="[
+
+                                            <router-link :to="{name: 'app.orders.view', params:{id:order.id}}" :class="[
                         active ? 'bg-indigo-600 text-white' : 'text-gray-900',
                         'group flex w-full items-center rounded-md px-2 py-2 text-sm',
-                      ]"
-                                                @click="editProduct(product)"
-                                            >
-                                                <PencilSquareIcon
-                                                    :active="active"
-                                                    class="mr-2 h-5 w-5 text-indigo-400"
-                                                    aria-hidden="true"
-                                                />
-                                                Edit
-                                            </button>
+                      ]"><EyeIcon
+                                                :active="active"
+                                                class="mr-2 h-5 w-5 text-indigo-400"
+                                                aria-hidden="true"
+                                            />
+                                                Ver Detalles</router-link>
                                         </MenuItem>
                                         <MenuItem v-slot="{ active }">
                                             <button
@@ -109,16 +103,16 @@
             </table>
             <div class="flex justify-between items-center mt-5">
                 <span>
-                    Showing from {{ products.from }} to {{ products.to }}
+                    Showing from {{ orders.from }} to {{ orders.to }}
                 </span>
                 <nav
-                    v-if="products.total > products.limit"
+                    v-if="orders.total > orders.limit"
                     class="relative z-0 inline-flex justify-center rounded-md shadow-sm -space-x-px"
                     aria-label="Pagination"
                 >
 
                     <a
-                        v-for="(link, i) of products.links"
+                        v-for="(link, i) of orders.links"
                         :key="i"
                         :disabled="!link.url"
                         href="#"
@@ -130,7 +124,7 @@
                                 ? 'z-10 bg-indigo-50 border-indigo-500 text-indigo-600'
                                 : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50',
                               i === 0 ? 'rounded-l-md' : '',
-                              i === products.links.length - 1 ? 'rounded-r-md' : '',
+                              i === orders.links.length - 1 ? 'rounded-r-md' : '',
                               !link.url ? ' bg-gray-100 text-gray-700': ''
                         ]"
                         v-html="link.label"
@@ -146,7 +140,7 @@
 </template>
 
 <script setup>
-import {ArrowDownIcon, TrashIcon , PencilSquareIcon,EllipsisVerticalIcon} from "@heroicons/vue/20/solid/index.js";
+import {ArrowDownIcon, TrashIcon , PencilSquareIcon,EllipsisVerticalIcon,EyeIcon} from "@heroicons/vue/20/solid/index.js";
 import LoadingSpiner from "../../components/core/loadingSpiner.vue";
 import {computed, onMounted, ref} from "vue";
 import store from "../../store/index.js";
@@ -158,18 +152,18 @@ import { Menu, MenuButton, MenuItems, MenuItem } from '@headlessui/vue'
 
 const perPage = ref(PRODUCTS_PER_PAGE);
 const search = ref('');
-const products = computed(()=> store.state.products);
+const orders = computed(()=> store.state.orders);
 const sortBy = ref('updated_at');
 const order = ref('desc');
 const emit = defineEmits(['clickEdit']);
 
 onMounted(()=>{
-    getProducts();
+    getOrders();
 })
 
-function getProducts(url = null)
+function getOrders(url = null)
 {
-    store.dispatch('getProducts' , {
+    store.dispatch('getOrders' , {
         url,
         search:search.value,
         perPage:perPage.value,
@@ -177,25 +171,15 @@ function getProducts(url = null)
         order : order.value
     });
 }
-function deleteProduct(product)
-{
-    if(!confirm('You want to delete this product')){
-        return
-    }
-    store.dispatch('deleteProduct',product.id).then((response) => {
-        getProducts();
-    });
-}
-function editProduct(product){
-    emit('clickEdit',product);
-}
+
 function getForPage(event , linkPage){
     if(!linkPage.url || linkPage.active)
     {
         return
     }
-    getProducts(linkPage.url);
+    getOrders(linkPage.url);
 }
+
 function sortProducts(field)
 {
     if(sortBy.value==field){
@@ -210,8 +194,9 @@ function sortProducts(field)
         order.value='asc';
     }
 
-    getProducts();
+    getOrders();
 }
+
 
 </script>
 

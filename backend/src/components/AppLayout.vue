@@ -13,11 +13,10 @@
     </div>
     <div v-else class="h-screen bg-gray-100 flex items-center justify-center m-auto h-50">
         <div class="items-center justify-center" >
-
             <Spiner></Spiner>
-
         </div>
     </div>
+    <Toast></Toast>
 </template>
 
 <script setup>
@@ -26,6 +25,7 @@ import NavBar from "./NavBar.vue";
 import {ref, onMounted, onUnmounted, computed} from "vue";
 import store from "../store/index.js";
 import Spiner from "./core/loadingSpiner.vue";
+import Toast from "./core/Toast.vue";
 
 const sidebarOpened = ref(true);
 const currentUser = computed(() => store.state.user.data);

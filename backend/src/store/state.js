@@ -1,5 +1,5 @@
 import {createStore} from "vuex";
-import {PRODUCTS_PER_PAGE} from "../constants.js";
+import {PRODUCTS_PER_PAGE , ORDERS_PER_PAGE} from "../constants.js";
 
 const state = {
     user:{
@@ -14,7 +14,20 @@ const state = {
         to: null ,
         page:1,
         limit: PRODUCTS_PER_PAGE
-    }
+    },
+    orders:{
+        data:[],
+        loading:false,
+        links:[],
+        from : null,
+        to: null ,
+        page:1,
+        limit: ORDERS_PER_PAGE
+    },
+    toast:{
+        show:false,
+        message:''
+    },
 };
 
 export default state;

@@ -1,4 +1,5 @@
 import axiosClient from "../axios.js";
+import store from "./index.js";
 
 export function login({commit},data){
     return axiosClient.post('/login',data).then(({data})=>{
@@ -42,8 +43,37 @@ export function getProducts({commit} , {url = null,search='',perPage,sortBy,orde
         commit('setProducts', [false]);
     })
 }
-export function getProduct({},id){
+export function getProduct({commit},id){
     return axiosClient.get(`/products/${id}`);
+}
+
+export function getOrders({commit} , {url = null,search='',perPage,sortBy,order} = {})
+{
+    commit('setOrders', [true]);
+    url = url || '/orders'
+    return axiosClient.get(url,{
+        params:{
+            search,
+            per_page:perPage,
+            sortBy,
+            order
+        }
+    }).then((res =>{
+            commit('setOrders', [false,res.data]);
+            console.log(store.state.orders);
+        })).catch((error) => {
+            console.log(error)
+            commit('setOrders', [false]);
+        })
+}
+export function getOrder({commit},id){
+    return axiosClient.get(`/orders/${id}`);
+}
+export function updateOrder({commit} , order){
+    const id = order.id;
+    order._method = 'PUT';
+
+    return axiosClient.post(`/orders/${id}` , order);
 }
 export function createProduct({commit} , product){
     if(product.image instanceof File){
