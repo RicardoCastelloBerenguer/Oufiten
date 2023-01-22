@@ -27,7 +27,7 @@
                     <td>{{$order->created_at}}</td>
                     <td>{{$order->total_price}}</td>
                     <td>
-                        <span class="{{$order->status==\App\Enums\OrderStatus::Paid->value ? 'bg-green-500' : 'bg-gray-500'}} text-white p-1 rounded">{{$order->status}}</span>
+                        <span class="{{$order->status==\App\Enums\OrderStatus::Paid->value ? 'bg-green-500' : ($order->status==\App\Enums\OrderStatus::Unpaid->value ? 'bg-gray-500' : ($order->status==\App\Enums\OrderStatus::Cancelled->value ? 'bg-red-500' : 'bg-yellow-500')) }} text-white p-1 rounded">{{$order->status}}</span>
                     </td>
                     <td class="flex gap-3">
                         <div x-data="{open: false}">

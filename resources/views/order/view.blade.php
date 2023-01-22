@@ -66,7 +66,7 @@
                                     <img class="w-full h-full" alt="logo" src="https://i.ibb.co/L8KSdNQ/image-3.png" />
                                 </div>
                                 <div class="flex flex-col justify-start items-center">
-                                    <p class="text-lg leading-6 dark:text-white font-semibold text-gray-800">{{$order->status == \App\Enums\OrderStatus::Paid->value ? 'PAGADO' : 'POR PAGAR'}}</p>
+                                    <p class="text-lg leading-6 dark:text-white font-semibold text-gray-800">{{$order->status == \App\Enums\OrderStatus::Paid->value ? 'PAGADO' : ($order->status == \App\Enums\OrderStatus::Unpaid->value ? 'POR PAGAR' : ($order->status == \App\Enums\OrderStatus::Cancelled->value ? 'CANCELADO' : 'COMPLETADO'))}}</p>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                                 <button class="hover:bg-black dark:bg-white dark:text-gray-800 dark:hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 py-5 w-96 md:w-full bg-gray-800 text-base font-medium leading-4 text-white">Pagar pedido</button>
                                 </div>
                             </form>
-                        @else
+                        @elseif($order->status == \App\Enums\OrderStatus::Paid->value || $order->status == \App\Enums\OrderStatus::Completed->value)
                             <p class="text-lg leading-6 dark:text-white font-semibold text-gray-800">Gracias por efectuar su compra con nosotros!</p>
                         @endif
                     </div>

@@ -133,7 +133,10 @@ class PaymentController extends Controller
             $order->update();
 
             $adminUsers = User::where('is_admin',1)->get();
-            Mail::to($adminUsers)->send(new newOrderEmail($order));
+
+            foreach ([...$adminUsers, $order->user] as $user){
+                Mail::to($adminUsers)->send(new newOrderEmail($order));
+            }
 
             return view('payment.success' , compact('session' , 'customer'));
         }catch (\Exception $e){
@@ -223,18 +226,19 @@ class PaymentController extends Controller
                     return view('payment.cancel',['message' => 'Este pago ya se completó, gracias por su compra']);
                 }
 
-                $payment->status=PaymentStatus::Paid;
+                $payment->status=PaymentStatus::Paid->value;
 
                 $payment->update();
 
                 $order = $payment->order;
 
-                $order->status = OrderStatus::Paid;
+                $order->status = OrderStatus::Paid->value;
 
                 $order->update();
 
                 $adminUsers = User::where('is_admin',1)->get();
-                Mail::to($adminUsers)->send(new newOrderEmail($order));
+
+                Mail::to([...$adminUsers,$order->user])->send(new newOrderEmail($order));
 
             // ... handle other event types
             default:
