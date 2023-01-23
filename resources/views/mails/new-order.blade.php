@@ -5,7 +5,8 @@
 <table>
     <tr>
         <th>ID Pedido</th>
-        @if($order->user->is_admin==1)
+        <h2>{{$userTo->is_admin}}</h2>
+        @if($userTo->is_admin==1)
         <a href="{{env('BACKEND_URL').'/app/orders/'.$order->id}}">
             {{$order->id}}
         </a>

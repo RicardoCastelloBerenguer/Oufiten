@@ -31,20 +31,13 @@
                             </a>
                         </li>
                         <li class="rounded-sm">
-                            <router-link :to="{name: 'app.products'}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-black/10"><Bars4Icon class="w-6 h-6 mr-3"></Bars4Icon>Products</router-link>
+                            <router-link :to="{name: 'app.products'}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-black/10"><CircleStackIcon class="w-6 h-6 mr-3"></CircleStackIcon>Products</router-link>
                         </li>
                         <li class="rounded-sm">
                             <router-link :to="{name: 'app.orders'}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-black/10"><Bars4Icon class="w-6 h-6 mr-3"></Bars4Icon>Orders</router-link>
                         </li>
                         <li class="rounded-sm">
-                            <a
-                                href="#"
-                                class="flex items-center p-2 space-x-3 rounded-md"
-                            >
-                                <UsersIcon class="w-6 h-6" aria-hidden="true" />
-
-                                <span>Users</span>
-                            </a>
+                            <router-link :to="{name: 'app.users'}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-black/10"><UsersIcon class="w-6 h-6 mr-3"></UsersIcon>Users</router-link>
                         </li>
                         <li class="rounded-sm">
                             <a
@@ -116,7 +109,7 @@
 
 <script setup>
 import{
-    HomeIcon,Bars4Icon,UsersIcon,ChartBarIcon
+    HomeIcon,Bars4Icon,UsersIcon,ChartBarIcon,CircleStackIcon
 } from "@heroicons/vue/20/solid";
 import NavBar from "./NavBar.vue";
 

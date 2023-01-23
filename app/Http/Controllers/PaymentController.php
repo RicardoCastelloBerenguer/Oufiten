@@ -119,7 +119,7 @@ class PaymentController extends Controller
                 return view('payment.cancel',['message' => 'El pago no existe']);
             else if ($payment->status==PaymentStatus::Paid->value){
                 //return view('payment.success');
-                return view('payment.success' , compact('session' , 'customer'));
+                //return view('payment.success' , compact('session' , 'customer'));
             }
 
             $payment->status=PaymentStatus::Paid;
@@ -135,7 +135,7 @@ class PaymentController extends Controller
             $adminUsers = User::where('is_admin',1)->get();
 
             foreach ([...$adminUsers, $order->user] as $user){
-                Mail::to($adminUsers)->send(new newOrderEmail($order));
+                Mail::to($user)->send(new newOrderEmail($order,$user));
             }
 
             return view('payment.success' , compact('session' , 'customer'));

@@ -9,6 +9,7 @@ import OrderView from "../views/Orders/OrderView.vue";
 import store from "../store/index.js";
 import AppLayout from "../components/AppLayout.vue";
 import NotFound from "../views/Not Found.vue";
+import Users from "../views/Users/Users.vue";
 
 const routes = [
     {
@@ -38,7 +39,12 @@ const routes = [
                 path: 'orders/:id',
                 name:'app.orders.view',
                 component: OrderView
-            }
+            },
+            {
+                path:'users',
+                name:'app.users',
+                component:Users
+            },
         ]
     },
     {
