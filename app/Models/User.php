@@ -24,6 +24,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'is_admin',
+        'email_verified_at'
     ];
 
     /**
@@ -47,6 +49,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function customer(){
         return $this->hasOne(Customer::class);
+    }
+    public function orders(){
+        return $this->hasMany(Order::class,'created_by');
     }
 
 }

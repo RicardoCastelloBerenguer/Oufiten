@@ -16,12 +16,43 @@ export function logout({commit}){
     })
 }
 
-export function getUser({commit},data)
+export function getUserLogged({commit},data)
 {
     return axiosClient.get('/user',data).then((data =>{
-        commit('setUser', data);
+        commit('setCurrentUser', data);
         return data.data;
     }))
+}
+export function getUsers({commit} , {url = null , search = '' ,perPage ,sortBy ,order} = {}){
+    commit('setUsers', [true]);
+
+    url = url || '/users'
+
+    return axiosClient.get(url,{
+        params:{
+            search,
+            per_page:perPage,
+            sortBy,
+            order
+        }
+    }).then((res =>{
+        commit('setUsers', [false,res.data]);
+    })).catch((error) => {
+        console.log(error)
+        commit('setUsers', [false]);
+    })
+}
+export function createUser({commit} , user){
+    return axiosClient.post('/users',user);
+}
+export function updateUser({commit} , user){
+    return axiosClient.put(`/users/${user.id}`,user);
+}
+export function deleteUser({commit} , id){
+    return axiosClient.delete(`/users/${id}`);
+}
+export function getUser({commit} , id){
+    return axiosClient.get(`/users/${id}`)
 }
 
 export function getProducts({commit} , {url = null,search='',perPage,sortBy,order} = {})

@@ -31,21 +31,20 @@
                         >
                             <LoadingSpiner v-if="loading" class="mt-8 justify-center"/>
                             <header v-if="!loading" class="py-3 px-4 flex justify-between items-center">
-                                <DialogTitle>{{product.id ? `Actualizar producto : "${props.product.title}" ` : 'Nuevo producto'}}</DialogTitle>
+                                <DialogTitle>{{user.id ? `Actualizar usuario : "${props.user.name}" ` : 'Nuevo usuario'}}</DialogTitle>
                                 <button @click="closeModal"><XMarkIcon class="float-right w-6"/></button>
                             </header>
                             <form v-if="!loading" @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" v-model="product.title" label="Título"/>
-                                    <CustomInput type="file" class="mb-2" label="Imagen " @change="file => product.image = file"/>
-                                    <CustomInput type="textarea" class="mb-2" v-model="product.description" label="Descripción"/>
-                                    <CustomInput type="number" class="mb-2" v-model="product.price" label="Precio" prepend="$"/>
+                                    <CustomInput class="mb-2" v-model="user.name" label="Nombre"/>
+                                    <CustomInput class="mb-2" v-model="user.email" label="Email"/>
+                                    <CustomInput type="password" class="mb-2" v-model="user.password" label="Contraseña"/>
                                 </div>
                                 <footer class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
                                             class="text-white mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm
                                                     bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500">
-                                            Añadir
+                                        Añadir
                                     </button>
                                     <button type="button"
                                             class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
@@ -83,17 +82,15 @@ import router from "../../router/index.js";
 
 const props = defineProps({
     modelValue:Boolean,
-    product:{
+    user:{
         required:true,
         type:Object
     }
 })
-const product = ref({
-    id : props.product.id,
-    price : props.product.price,
-    image : props.product.image,
-    description : props.product.description,
-    title : props.product.title,
+const user = ref({
+    id : props.user.id,
+    name : props.user.name,
+    email : props.user.email,
 });
 
 const loading = ref(false);
@@ -104,22 +101,20 @@ const isOpen=computed({
     set : (value)=> emit("update:modelValue",value),
 })
 onUpdated(() => {
-    product.value = {
-        id : props.product.id,
-        price : props.product.price,
-        image : props.product.image,
-        description : props.product.description,
-        title : props.product.title,
+    user.value = {
+        id : props.user.id,
+        name : props.user.name,
+        email : props.user.email,
     };
 })
 function onSubmit(){
     loading.value=true;
-    if(product.value.id){
-        store.dispatch('updateProduct',product.value).then(resp =>{
+    if(user.value.id){
+        store.dispatch('updateUser',user.value).then(resp =>{
             loading.value=false;
             if(resp.status == 200){
                 //TODO showNotification
-                store.dispatch('getProducts');
+                store.dispatch('getUsers');
                 closeModal();
                 emit('close');
             }
@@ -130,12 +125,12 @@ function onSubmit(){
     }
     else
     {
-        store.dispatch('createProduct',product.value).then(response => {
+        store.dispatch('createUser',user.value).then(response => {
             loading.value=false;
             if(response.status == 201){
                 console.log("okey");
                 //TODO showNotification
-                store.dispatch('getProducts');
+                store.dispatch('getUsers');
                 closeModal();
                 emit('close');
             }
@@ -145,7 +140,6 @@ function onSubmit(){
         });
 
     }
-    store.dispatch('getproducts');
 }
 
 function closeModal() {

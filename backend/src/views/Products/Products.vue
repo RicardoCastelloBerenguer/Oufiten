@@ -1,9 +1,9 @@
 <template>
     <div class="flex items-center justify-between mb-3 " >
-        <h1 class="text-3xl font semibold">Products</h1>
+        <h1 class="text-3xl font semibold">Productos</h1>
         <button @click="showProductModal" class="flex justify-center bg-indigo-600 hover:bg-indigo-400 text-white font-bold py-2 px-4 rounded"
                 type="submit">
-            Add new Product
+            Añadir nuevo producto
         </button>
     </div>
 
