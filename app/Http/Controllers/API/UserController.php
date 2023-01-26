@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Enums\CustomerStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UserCreateRequest;
@@ -27,7 +28,7 @@ class UserController extends Controller
     {
         $search = request('search',false);
         $perPage = request('per_page',20);
-        $sortBy = request('sortBy','updated_at');
+        $sortBy = request('sortBy','created_at');
         $order = request('order','desc');
 
         $query = User::query();
@@ -61,6 +62,15 @@ class UserController extends Controller
         $customer->user_id=$user->id;
         $customer->first_name = $names[0];
         $customer->last_name = $names[1] ?? '';
+        $customer->created_by=$request->user()->id;
+        $customer->phone='';
+        $customer->status=CustomerStatus::Active;
+        $customer->updated_by=$request->user()->id;
+
+        $customer->shippingAddress = [
+            ''
+        ];
+
         $customer->save();
 
         return new UserResource($user);

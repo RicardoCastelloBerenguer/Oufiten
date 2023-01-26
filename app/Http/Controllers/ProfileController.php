@@ -53,7 +53,7 @@ class ProfileController extends Controller
             CustomerAddress::create($billingData);
         }
 
-        $request->session()->flash('flash_message', 'Profile was successfully updated.');
+        $request->session()->flash('flash_message', 'Perfil actualizado correctamente.');
 
         return redirect()->route('profile');
 

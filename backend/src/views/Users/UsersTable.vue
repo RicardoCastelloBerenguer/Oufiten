@@ -179,8 +179,19 @@ function deleteUser(user)
         return
     }
     store.dispatch('deleteUser',user.id).then((response) => {
-        getUsers();
-    });
+        if(response.data.error){
+            store.commit('showToast',['El cliente tiene pedidos registrados','alert']);
+        }
+        else{
+            if(response.status==200){
+                getUsers();
+                store.commit('showToast',['El cliente ha sido borrado correctamente','success']);
+            }
+        }
+    }).catch($error => {
+        store.commit('showToast',['Ha ocurrido un error al borrar el cliente','error']);
+        console.log($error);
+    })
 }
 function editUser(user){
     emit('clickEdit',user);

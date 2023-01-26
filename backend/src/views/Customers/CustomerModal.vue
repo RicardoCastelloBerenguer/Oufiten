@@ -31,24 +31,22 @@
                         >
                             <LoadingSpiner v-if="loading" class="mt-8 justify-center"/>
                             <header v-if="!loading" class="py-3 px-4 flex justify-between items-center">
-                                <DialogTitle>{{user.id ? `Actualizar usuario : "${props.user.name}" ` : 'Nuevo usuario'}}</DialogTitle>
+                                <DialogTitle>{{customer.id ? `Actualizar usuario : "${props.customer.name}" ` : 'Nuevo usuario'}}</DialogTitle>
                                 <button @click="closeModal"><XMarkIcon class="float-right w-6"/></button>
                             </header>
-                            <div>
-                                <p class="bg-red-600" v-for="error in errors">{{errormsg}}</p>
-                            </div>
-
                             <form v-if="!loading" @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" v-model="user.name" label="Nombre"/>
-                                    <CustomInput class="mb-2" v-model="user.email" label="Email"/>
-                                    <CustomInput type="password" class="mb-2" v-model="user.password" label="Contraseña"/>
+                                    <CustomInput class="mb-2" v-model="customer.first_name" label="Nombre"/>
+                                    <CustomInput class="mb-2" v-model="customer.last_name" label="Apellido"/>
+                                    <CustomInput class="mb-2" v-model="customer.email" label="Email"/>
+                                    <CustomInput class="mb-2" v-model="customer.phone" label="Teléfono"/>
+                                    <CustomInput class="mb-2" v-model="customer.status" label="Estado"/>
                                 </div>
                                 <footer class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
                                             class="text-white mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm
                                                     bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500">
-                                        {{ user.id ? 'Editar' : 'Añadir' }}
+                                        Añadir
                                     </button>
                                     <button type="button"
                                             class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
@@ -82,20 +80,19 @@ import CustomInput from "../../components/core/CustomInput.vue";
 
 
 const order = ref('desc');
-const errors = ref([]);
 import router from "../../router/index.js";
 
 const props = defineProps({
     modelValue:Boolean,
-    user:{
+    customer:{
         required:true,
         type:Object
     }
 })
-const user = ref({
-    id : props.user.id,
-    name : props.user.name,
-    email : props.user.email,
+const customer = ref({
+    id : props.customer.id,
+    name : props.customer.name,
+    email : props.customer.email,
 });
 
 const loading = ref(false);
@@ -106,51 +103,41 @@ const isOpen=computed({
     set : (value)=> emit("update:modelValue",value),
 })
 onUpdated(() => {
-    user.value = {
-        id : props.user.id,
-        name : props.user.name,
-        email : props.user.email,
+    customer.value = {
+        id : props.customer.id,
+        name : props.customer.name,
+        email : props.customer.email,
     };
 })
 function onSubmit(){
     loading.value=true;
-    if(user.value.id){
-        store.dispatch('updateUser',user.value).then(resp =>{
-            if(resp.status == 200){
-                store.commit('showToast',['El usuario ha sido editado correctamente' , 'success'])
-                store.dispatch('getUsers');
-                loading.value=false;
-                closeModal();
-                emit('close');
-            }
-        }).catch(error => {
-            console.log(error);
-            store.commit('showToast',['A ocurrido un error al actualizar el cliente con id : ' + user.value.id,'error']);
-            store.dispatch('getUsers');
+    if(customer.value.id){
+        store.dispatch('updateCustomer',customer.value).then(resp =>{
             loading.value=false;
-            closeModal();
-            emit('close');
-        });
-    }
-    else
-    {
-        store.dispatch('createUser',user.value).then(response => {
-            if(response.status == 201){
-                loading.value=false;
-                console.log("okey");
+            if(resp.status == 200){
                 //TODO showNotification
-                store.commit('showToast',['El usuario ha sido creado correctamente' , success])
-                store.dispatch('getUsers');
+                store.dispatch('getCustomers');
                 closeModal();
                 emit('close');
             }
         }).catch(error => {
             //TODO showNotification
-            store.commit('showToast',['A ocurrido un error al crear el cliente','error']);
-            store.dispatch('getUsers');
-            closeModal();
-            emit('close');
+            console.log(error);
+        });
+    }
+    else
+    {
+        store.dispatch('createCustomer',customer.value).then(response => {
             loading.value=false;
+            if(response.status == 201){
+                console.log("okey");
+                //TODO showNotification
+                store.dispatch('getCustomers');
+                closeModal();
+                emit('close');
+            }
+        }).catch(error => {
+            //TODO showNotification
             console.log(error);
         });
 

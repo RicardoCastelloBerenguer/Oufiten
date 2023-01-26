@@ -1,5 +1,5 @@
 import {createStore} from "vuex";
-import {PRODUCTS_PER_PAGE, ORDERS_PER_PAGE, USERS_PER_PAGE} from "../constants.js";
+import {PRODUCTS_PER_PAGE, ORDERS_PER_PAGE, USERS_PER_PAGE, CUSTOMERS_PER_PAGE} from "../constants.js";
 
 const state = {
     user:{
@@ -33,9 +33,19 @@ const state = {
         page:1,
         limit: USERS_PER_PAGE
     },
+    customers:{
+        data:[],
+        loading:false,
+        links:[],
+        from : null,
+        to: null ,
+        page:1,
+        limit: CUSTOMERS_PER_PAGE
+    },
     toast:{
         show:false,
-        message:''
+        message:'',
+        type:'success'
     },
 };
 

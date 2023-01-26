@@ -31,13 +31,16 @@
                             </a>
                         </li>
                         <li class="rounded-sm">
-                            <router-link :to="{name: 'app.products'}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-black/10"><CircleStackIcon class="w-6 h-6 mr-3"></CircleStackIcon>Products</router-link>
+                            <router-link :to="{name: 'app.products'}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-black/10"><CircleStackIcon class="w-6 h-6 mr-3"></CircleStackIcon>Productos</router-link>
                         </li>
                         <li class="rounded-sm">
-                            <router-link :to="{name: 'app.orders'}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-black/10"><Bars4Icon class="w-6 h-6 mr-3"></Bars4Icon>Orders</router-link>
+                            <router-link :to="{name: 'app.orders'}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-black/10"><Bars4Icon class="w-6 h-6 mr-3"></Bars4Icon>Pedidos</router-link>
                         </li>
                         <li class="rounded-sm">
-                            <router-link :to="{name: 'app.users'}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-black/10"><UsersIcon class="w-6 h-6 mr-3"></UsersIcon>Users</router-link>
+                            <router-link :to="{name: 'app.users'}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-black/10"><UsersIcon class="w-6 h-6 mr-3"></UsersIcon>Usuarios</router-link>
+                        </li>
+                        <li class="rounded-sm">
+                            <router-link :to="{name: 'app.customers'}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-black/10"><UserGroupIcon class="w-6 h-6 mr-3"></UserGroupIcon>Clientes</router-link>
                         </li>
                         <li class="rounded-sm">
                             <a
@@ -46,7 +49,7 @@
                             >
                                 <ChartBarIcon class="w-6 h-6" aria-hidden="true" />
 
-                                <span>Reports</span>
+                                <span>Reportes</span>
                             </a>
                         </li>
                         <li class="rounded-sm">
@@ -109,8 +112,8 @@
 
 <script setup>
 import{
-    HomeIcon,Bars4Icon,UsersIcon,ChartBarIcon,CircleStackIcon
-} from "@heroicons/vue/20/solid";
+    HomeIcon,Bars4Icon,UsersIcon,ChartBarIcon,CircleStackIcon,UserGroupIcon
+} from "@heroicons/vue/24/outline";
 import NavBar from "./NavBar.vue";
 
 

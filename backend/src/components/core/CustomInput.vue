@@ -44,6 +44,8 @@
             </template>
             <template v-else>
                 <input :type="type"
+                       :min="min"
+                       :maxlength="maxlength"
                        :name="name"
                        :required="required"
                        :value="props.modelValue"
@@ -72,6 +74,8 @@ const props = defineProps({
         default: 'text'
     },
     name: String,
+    min:Number,
+    maxlength:Number,
     required: Boolean,
     prepend: {
         type: String,

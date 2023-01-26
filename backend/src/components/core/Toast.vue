@@ -3,7 +3,8 @@
     <div
         v-show="toast.show"
         x-transition
-        class="fixed w-[400px] left-1/2 -ml-[200px] top-16 py-2 px-4 pb-4 bg-emerald-500 text-white"
+        class="fixed w-[500px] left-1/2 -ml-[200px] top-16 py-2 px-4 pb-4 text-white"
+        :class="toast.type == 'error' ? 'bg-red-500' : toast.type == 'success' ? 'bg-emerald-500' : 'bg-yellow-500'"
     >
         <div class="font-semibold">{{toast.message}}</div>
         <button

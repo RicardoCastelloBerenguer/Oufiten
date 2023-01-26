@@ -10,6 +10,8 @@ import store from "../store/index.js";
 import AppLayout from "../components/AppLayout.vue";
 import NotFound from "../views/Not Found.vue";
 import Users from "../views/Users/Users.vue";
+import Customers from "../views/Customers/Customers.vue";
+import CustomerView from "../views/Customers/CustomerView.vue";
 
 const routes = [
     {
@@ -44,6 +46,16 @@ const routes = [
                 path:'users',
                 name:'app.users',
                 component:Users
+            },
+            {
+                path:'customers',
+                name:'app.customers',
+                component:Customers
+            },
+            {
+                path:'customers/:id',
+                name:'app.customers.view',
+                component:CustomerView
             },
         ]
     },

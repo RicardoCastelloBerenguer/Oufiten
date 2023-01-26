@@ -43,7 +43,7 @@
                             return null;
                         },
                         get shippingCountryCommunity(){
-                            const country = this.countries.find(c => c.code == this.billingAddress.country_code)
+                            const country = this.countries.find(c => c.code == this.shippingAddress.country_code)
                             if(country && country.community) {
                                 return JSON.parse(country.community);
                             }

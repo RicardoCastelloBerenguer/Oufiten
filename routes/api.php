@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CustomerController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\UserController;
@@ -21,10 +22,13 @@ Route::middleware(['auth:sanctum','admin'])
     ->group(function (){
         Route::get('/user', [AuthController::class , 'getUserLogged']);
         Route::post('/logout',[AuthController::class,'logout']);
+        Route::get('/countries' , [\App\Http\Controllers\API\CountryController::class,'index']);
 
         Route::apiResource('products', ProductController::class);
         Route::apiResource('orders', OrderController::class);
         Route::apiResource('users', UserController::class);
+        Route::apiResource('customers', CustomerController::class);
+
 
 });
 
