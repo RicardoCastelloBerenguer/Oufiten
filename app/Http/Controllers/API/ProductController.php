@@ -127,8 +127,10 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
+        $product->show_catalogue=!$product->show_catalogue;
 
-        return response()->noContent();
+        $product->update();
+
+        return response(['productoModificado' => $product]);
     }
 }

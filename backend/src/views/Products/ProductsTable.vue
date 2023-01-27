@@ -27,6 +27,7 @@
                     <TableHead field="" :order="order" :sortBy="sortBy">Imagen</TableHead>
                     <TableHead @orderProductsBy="sortProducts" field="title" :order="order" :sortBy="sortBy">Titulo</TableHead>
                     <TableHead @orderProductsBy="sortProducts" field="price" :order="order" :sortBy="sortBy">Precio</TableHead>
+                    <TableHead :order="order" :sortBy="sortBy">Fuera de Stock</TableHead>
                     <TableHead @orderProductsBy="sortProducts" field="updated_at" :order="order" :sortBy="sortBy">Fecha de creación</TableHead>
                     <TableHead :order="order" :sortBy="sortBy" field=""> Acciones </TableHead>
                 </tr>
@@ -40,7 +41,9 @@
                     </td>
                     <td class="border-b p-2 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis">{{ product.title }}</td>
                     <td class="border-b p-2">{{product.price}} €</td>
-                    <td class="border-b p-2">{{product.updated_at}}</td>
+                    <td class="border-b p-2"><span class="text-white py-1 px-2 rounded " :class="product.show_catalogue ? 'bg-emerald-400' : 'bg-red-400'">{{!product.show_catalogue ? 'Retirado del catálogo' : 'Disponible'}}</span></td>
+                    <td class="border-b p-2">{{product.created_at}}</td>
+
                     <td class="border-b p-2">
                         <Menu as="div" class="relative inline-block text-left">
                             <div>
@@ -64,7 +67,7 @@
                                 leave-to-class="transform scale-95 opacity-0"
                             >
                                 <MenuItems
-                                    class="absolute right-0 mt-2 w-32 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                    class="absolute right-0 mt-2 w-40 origin-top-right divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                                 >
                                     <div class="px-1 py-1">
                                         <MenuItem v-slot="{ active }">
@@ -96,7 +99,7 @@
                                                     class="mr-2 h-5 w-5 text-indigo-400"
                                                     aria-hidden="true"
                                                 />
-                                                Borrar
+                                                {{product.show_catalogue ? 'Retirar' : 'Reponer'}}
                                             </button>
                                         </MenuItem>
                                     </div>
@@ -179,12 +182,15 @@ function getProducts(url = null)
 }
 function deleteProduct(product)
 {
-    if(!confirm('Estas seguro de borrar el producto : ' + product.title)){
+    if(!confirm('Estas seguro de retirar/reponer el producto : ' + product.title)){
         return
     }
     store.dispatch('deleteProduct',product.id).then((response) => {
         getProducts();
-        store.commit('showToast',['Producto borrado del catálogo correctamente' , 'success'])
+        if(response.data.productoModificado.show_catalogue)
+        store.commit('showToast',['Producto Repuesto del catálogo correctamente' , 'success'])
+        else
+        store.commit('showToast',['Producto Retirado del catálogo correctamente' , 'success'])
     });
 }
 function editProduct(product){
