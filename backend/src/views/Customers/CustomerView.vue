@@ -79,12 +79,7 @@
                                         <CustomInput :required="true" class="mb-2" v-model="customer.shippingAddress.zipcode" label="Codigo postal"/>
                                     </div>
 
-                                    <div class="md:col-span-5">
-                                        <div class="inline-flex items-center">
-                                            <input type="checkbox" name="billing_same" id="billing_same" class="form-checkbox" />
-                                            <label for="billing_same" class="ml-2">My billing address is different than above.</label>
-                                        </div>
-                                    </div>
+
 
                                     <div class="md:col-span-6 grid place-items-center py-3">
                                         <p class="font-medium text-lg">Dirección de Facturación : </p>
@@ -137,7 +132,7 @@
                                 <div class="grid gap-4 gap-y-2 text-sm grid-cols-1 md:grid-cols-6">
 
                                     <div class="md:col-span-6">
-                                        <h2 class="text-md font-medium text-gray-900 dark:text-white">El usuario {{customer.first_name}} aún no tiene ningún dato de envío registrado para editar</h2>
+                                        <h2 class="text-md font-medium text-gray-900 dark:text-white">El cliente {{customer.first_name }} aún no tiene ningún dato de envío registrado para editar</h2>
                                     </div>
                                 </div>
                             </div>

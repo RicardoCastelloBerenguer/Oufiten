@@ -39,7 +39,7 @@
                         <img class="w-24 h-24 object-cover" :src="product.image_url" :alt="product.title">
                     </td>
                     <td class="border-b p-2 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis">{{ product.title }}</td>
-                    <td class="border-b p-2">{{product.price}}</td>
+                    <td class="border-b p-2">{{product.price}} €</td>
                     <td class="border-b p-2">{{product.updated_at}}</td>
                     <td class="border-b p-2">
                         <Menu as="div" class="relative inline-block text-left">
@@ -179,11 +179,12 @@ function getProducts(url = null)
 }
 function deleteProduct(product)
 {
-    if(!confirm('You want to delete this product')){
+    if(!confirm('Estas seguro de borrar el producto : ' + product.title)){
         return
     }
     store.dispatch('deleteProduct',product.id).then((response) => {
         getProducts();
+        store.commit('showToast',['Producto borrado del catálogo correctamente' , 'success'])
     });
 }
 function editProduct(product){

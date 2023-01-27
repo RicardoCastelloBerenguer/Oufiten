@@ -124,7 +124,14 @@
                             </div>
                         </div>
                         <div  class="flex w-full justify-center items-center md:justify-start md:items-start">
-                            <button class="mt-6 md:mt-0 dark:border-white dark:hover:bg-gray-900 dark:bg-transparent dark:text-white py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base font-medium leading-4 text-gray-800">Edit Details</button>
+                            <router-link :to="{name: 'app.customers.view', params:{id:order.customer.id}}" :class="[
+                                active ? 'bg-indigo-600 text-white' : 'text-gray-900',
+                                'group flex w-full items-center rounded-md px-2 py-2 text-sm',
+                              ]">
+                                <button class="mt-6 md:mt-0 dark:border-white dark:hover:bg-gray-900 dark:bg-transparent dark:text-white py-5 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 border border-gray-800 font-medium w-96 2xl:w-full text-base font-medium leading-4 text-gray-800">
+                                    Editar datos</button>
+                            </router-link>
+
                         </div>
                     </div>
                 </div>
@@ -174,14 +181,13 @@ function updateOrder(){
         if(response.status <= 300 && response.status>=200){
             //TODO showNotification
             store.dispatch('getOrder' , order.value.id);
-            store.commit('showToast',`El estado del pedido se ha actualizado correctamente`);
+            store.commit('showToast',['El estado del pedido se ha actualizado correctamente','success']);
             loadingOrder.value=false;
         }
-        else
-            loadingOrder.value=false;
     }).catch($error => {
         loadingOrder.value=false;
-       console.log($error);
+        store.commit('showToast',['No se ha podido actualizar el estado del pedido','error']);
+        console.log($error);
     });
 
 }

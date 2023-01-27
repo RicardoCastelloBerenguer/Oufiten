@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <div class="container lg:w-2/3 xl:w-2/3 mx-auto">
-        <h1 class="text-3xl font-bold mb-6">Your Cart Items</h1>
+        <h1 class="text-3xl font-bold mb-6">Tus productos</h1>
 
         <div
             x-data="{
@@ -41,7 +41,7 @@
                                     <div class="flex justify-between mb-3">
                                         <h3 x-text="product.title"></h3>
                                         <span class="text-lg font-semibold">
-                                            €<span x-text="product.price"></span>
+                                            <span x-text="product.price"></span>€
                                         </span>
                                     </div>
                                     <div class="flex justify-between items-center">
@@ -59,7 +59,7 @@
                                             href="#"
                                             @click.prevent="removeItemFromCart()"
                                             class="text-purple-600 hover:text-purple-500"
-                                        >Remove</a
+                                        >Quitar</a
                                         >
                                     </div>
                                 </div>
@@ -73,16 +73,27 @@
                     <div class="border-t border-gray-300 pt-4">
                         <div class="flex justify-between">
                             <span class="font-semibold">Subtotal</span>
-                            <span id="cartTotal" class="text-xl" x-text="`€${cartTotal}`"></span>
+                            <span id="cartTotal" class="text-xl" x-text="`${cartTotal}€`"></span>
                         </div>
                         <p class="text-gray-500 mb-6">
-                            Shipping and taxes calculated at checkout.
+                            Envío y impuestos ya calculados en el pago.
                         </p>
                         <form action="{{route('cart.payment')}}" method="post">
                             @csrf
-                            <button type="submit" class="btn-primary w-full py-3 text-lg">
-                                Proceed to Checkout
+                            @if(!$disabled)
+                            <button if type="submit" class="btn-primary w-full py-3 text-lg">
+                                Proceder al pago
                             </button>
+                            @else
+                                <div class="py-3 text-lg flex justify-center">
+                                    <a
+                                        href="{{route('profile')}}"
+                                        class="text-center btn-primary w-full py-3 text-lg">
+
+                                        Debes rellenar tus datos de envío antes de proceder al pago
+                                    </a>
+                                </div>
+                            @endif
                         </form>
                     </div>
                 </div>
@@ -90,7 +101,7 @@
             </template>
             <template x-if="!cartItems.length">
                 <div class="text-center py-8 text-gray">
-                    You don't have any products in your cart
+                    No tienes ningún producto en el carrito
                 </div>
             </template>
 

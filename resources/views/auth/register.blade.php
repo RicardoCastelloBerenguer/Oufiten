@@ -6,13 +6,13 @@
         class="w-[400px] mx-auto p-6 my-16"
     >
         @csrf
-        <h2 class="text-2xl font-semibold text-center mb-4">Create an account</h2>
+        <h2 class="text-2xl font-semibold text-center mb-4">Crear una cuenta</h2>
         <p class="text-center text-gray-500 mb-3">
-            or
+            o
             <a
                 href="{{route('login')}}"
                 class="text-sm text-purple-700 hover:text-purple-600"
-            >login with existing account</a
+            >Inicia sesión con una cuenta existente</a
             >
         </p>
 
@@ -20,7 +20,7 @@
 
         <div class="mb-4">
             <x-input
-                placeholder="Your name"
+                placeholder="Tu nombre"
                 type="text"
                 name="name"
                 :value="old('name')"
@@ -29,7 +29,7 @@
         </p>
         <div class="mb-4">
             <x-input
-                placeholder="Your Email"
+                placeholder="Tu Email"
                 type="email"
                 name="email"
                 :value="old('email')"
@@ -37,7 +37,7 @@
         </div>
         <div class="mb-4">
             <x-input
-                placeholder="Password"
+                placeholder="Contraseña"
                 type="password"
                 name="password"
             />
@@ -45,7 +45,7 @@
         </div>
         <div class="mb-4">
             <x-input
-                placeholder="Repeat Password"
+                placeholder="Repite la contraseña"
                 type="password"
                 name="password_confirmation"
             />
@@ -54,7 +54,7 @@
         <button
             class="btn-primary bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 w-full"
         >
-            Signup
+            Registrarse
         </button>
     </form>
 

@@ -63,13 +63,6 @@ class UserController extends Controller
         $customer->first_name = $names[0];
         $customer->last_name = $names[1] ?? '';
         $customer->created_by=$request->user()->id;
-        $customer->phone='';
-        $customer->status=CustomerStatus::Active;
-        $customer->updated_by=$request->user()->id;
-
-        $customer->shippingAddress = [
-            ''
-        ];
 
         $customer->save();
 

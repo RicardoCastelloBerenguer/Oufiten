@@ -66,5 +66,12 @@ class Cart
         if(!empty($newCartItems)){
             CartItem::insert($newCartItems);
         }
+
+        $cartItems = json_decode($request->cookie('cart_items','[]'),true);
+
+        array_splice($cartItems,0,count($cartItems));
+
+        Cookie::queue('cart_items',json_encode($cartItems),60*24*15);
+
     }
 }

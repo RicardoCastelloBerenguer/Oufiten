@@ -23,11 +23,11 @@
             <table class="table-auto w-full">
                 <thead>
                 <tr>
-                    <TableHead @orderProductsBy="sortProducts" field="id" :order="order" :sortBy="sortBy">Id</TableHead>
-                    <TableHead :order="order" :sortBy="sortBy">Cliente</TableHead>
+                    <TableHead @orderProductsBy="sortOrders" field="id" :order="order" :sortBy="sortBy">Id</TableHead>
+                    <TableHead field='name' :order="order" :sortBy="sortBy">Cliente</TableHead>
                     <TableHead :order="order" :sortBy="sortBy">Estado</TableHead>
-                    <TableHead @orderProductsBy="sortProducts" field="total_price" :order="order" :sortBy="sortBy">Precio Total</TableHead>
-                    <TableHead @orderProductsBy="sortProducts" field="created_at" :order="order" :sortBy="sortBy">Hora del Pedido</TableHead>
+                    <TableHead @orderProductsBy="sortOrders" field="total_price" :order="order" :sortBy="sortBy">Precio Total</TableHead>
+                    <TableHead @orderProductsBy="sortOrders" field="created_at" :order="order" :sortBy="sortBy">Hora del Pedido</TableHead>
                     <TableHead :order="order" :sortBy="sortBy" field=""> Acciones </TableHead>
                 </tr>
                 </thead>
@@ -124,7 +124,7 @@ function getOrders(url = null)
         perPage:perPage.value,
         sortBy : sortBy.value,
         order : order.value
-    });
+    })
 }
 
 function getForPage(event , linkPage){
@@ -135,19 +135,19 @@ function getForPage(event , linkPage){
     getOrders(linkPage.url);
 }
 
-function sortProducts(field)
+function sortOrders(field)
 {
-    if(sortBy.value==field){
-        if(order.value == 'asc'){
-            order.value='desc';
-        }
-        else {
+        if(sortBy.value==field){
+            if(order.value == 'asc'){
+                order.value='desc';
+            }
+            else {
+                order.value='asc';
+            }
+        }else{
+            sortBy.value=field;
             order.value='asc';
         }
-    }else{
-        sortBy.value=field;
-        order.value='asc';
-    }
 
     getOrders();
 }

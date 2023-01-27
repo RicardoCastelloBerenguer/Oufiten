@@ -62,13 +62,12 @@
                                         x-show="open"
                                         x-transition
                                         @click.outside="open = false"
-                                        class="w-[90%] md:w-1/2 bg-white rounded-lg"
+                                        class="bg-white rounded-lg"
                                     >
                                         <!-- Modal Title -->
                                         <div
                                             class="py-2 px-4 text-lg font-semibold bg-gray-100 rounded-t-lg flex items-center justify-between"
                                         >
-                                            <h2>Modal Title</h2>
                                             <button @click="open = false">
                                                 <svg
                                                     xmlns="http://www.w3.org/2000/svg"
@@ -88,18 +87,44 @@
                                         </div>
                                         <!-- Modal Body -->
                                         <div class="p-4">
-                                            Invoice Content
-                                        </div>
-                                        <!-- Modal Footer -->
-                                        <div
-                                            class="py-2 px-4 text-lg flex justify-end font-semibold bg-gray-100 rounded-b-lg"
-                                        >
-                                            <button
-                                                @click="open = false"
-                                                class="inline-flex items-center py-1 px-3 bg-gray-300 hover:bg-opacity-95 text-gray-800 rounded-md shadow"
-                                            >
-                                                Cerrar
-                                            </button>
+                                            <div class="flex justify-center items-center bg-gray-200 text-gray-900">
+                                                <div class="rounded-md relative w-72 shadow-2xl p-3 bg-white">
+                                                    <div class="py-2">
+                                                        <div class="text-center text-xl font-bold">PEDIDO</div>
+                                                        <div class="text-center text-xs font-bold">Detalles del pedido</div>
+                                                    </div>
+                                                    <div class="text-center text-xs font-bold mb-1">~~~~~~~~~~~~~~~~~~~~~~~~~~~~</div>
+                                                    <div class="text-xs pl-2">
+                                                        <div class="text-xs mb-1">Cliente：{{$order->user->customer->first_name}}</div>
+                                                        <div class="text-xs mb-1">Telefono：{{$order->user->customer->phone}}</div>
+                                                        <div>OrderNumber：{{$order->id}}</div>
+                                                    </div>
+                                                    <div class="border-double border-t-4 border-b-4 border-l-0 border-r-0 border-gray-900 my-3">
+                                                        <div class="flex text-sm pt-1 px-1">
+                                                            <span class="w-2/6">Nombre</span>
+                                                            <span class="w-2/6 text-right">Precio</span>
+                                                            <span class="w-2/6 text-right">Cantidad</span>
+                                                        </div>
+                                                        <div class="border-dashed border-t border-b border-l-0 border-r-0 border-gray-900 mt-1 my-2 py-2 px-1">
+                                                            @foreach($order->orderItems as $orderItem)
+                                                                <div class="flex justify-between text-sm">
+                                                                    <span class="w-2/6 truncate">{{$orderItem->product->title}}</span>
+                                                                    <span class="w-2/6 text-right">{{$orderItem->product->price}}</span>
+                                                                    <span class="w-2/6 text-right">{{$orderItem->quantity}}</span>
+                                                                </div>
+                                                            @endforeach
+                                                        </div>
+                                                    </div>
+                                                    <div class="text-xs">
+                                                        <div class="mb-1">Descuento：€0</div>
+                                                        <div class="mb-52">-----------</div>
+                                                        <div class="text-right">
+                                                            <div>Fecha：{{$order->created_at}}</div>
+                                                            <div class="font-bold text-sm">Total：{{$order->total_price}} €</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

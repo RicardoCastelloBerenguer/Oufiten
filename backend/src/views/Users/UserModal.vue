@@ -40,9 +40,9 @@
 
                             <form v-if="!loading" @submit.prevent="onSubmit">
                                 <div class="bg-white px-4 pt-5 pb-4">
-                                    <CustomInput class="mb-2" v-model="user.name" label="Nombre"/>
-                                    <CustomInput class="mb-2" v-model="user.email" label="Email"/>
-                                    <CustomInput type="password" class="mb-2" v-model="user.password" label="Contraseña"/>
+                                    <CustomInput :required="true" class="mb-2" v-model="user.name" label="Nombre"/>
+                                    <CustomInput :required="true" type="email" class="mb-2" v-model="user.email" label="Email"/>
+                                    <CustomInput :minlength="8" type="password" class="mb-2" v-model="user.password" label="Contraseña"/>
                                 </div>
                                 <footer class="px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
                                     <button type="submit"
@@ -135,25 +135,22 @@ function onSubmit(){
     else
     {
         store.dispatch('createUser',user.value).then(response => {
-            if(response.status == 201){
+            if(response.status >= 200 && response.status <= 300){
+                debugger;
                 loading.value=false;
-                console.log("okey");
-                //TODO showNotification
-                store.commit('showToast',['El usuario ha sido creado correctamente' , success])
+                store.commit('showToast',['El usuario ha sido creado correctamente' , 'success'])
                 store.dispatch('getUsers');
                 closeModal();
                 emit('close');
             }
         }).catch(error => {
-            //TODO showNotification
-            store.commit('showToast',['A ocurrido un error al crear el cliente','error']);
+            //TODO
+            console.log(error.response.data.errors);
+            store.commit('showToast',['Ha ocurrido un error al crear el cliente ','error']);
             store.dispatch('getUsers');
-            closeModal();
-            emit('close');
             loading.value=false;
             console.log(error);
         });
-
     }
 }
 

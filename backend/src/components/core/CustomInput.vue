@@ -46,6 +46,7 @@
                 <input :type="type"
                        :min="min"
                        :maxlength="maxlength"
+                       :minlength="minlength"
                        :name="name"
                        :required="required"
                        :value="props.modelValue"
@@ -76,6 +77,7 @@ const props = defineProps({
     name: String,
     min:Number,
     maxlength:Number,
+    minlength:Number,
     required: Boolean,
     prepend: {
         type: String,

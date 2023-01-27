@@ -5,13 +5,28 @@ namespace App\Http\Controllers;
 use App\Http\Helpers\Cart;
 use App\Models\CartItem;
 use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Cookie;
 
 class CartController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
+        /** @var \App\Models\User $user */
+        $user = $request->user();
+
+        $disabled=false;
+
+        if($user){
+            $customerShippingAddress = $user->customer->shippingAddress;
+            $customerBillingAddress = $user->customer->billingAddress;
+
+            if(is_null($customerShippingAddress) || is_null($customerBillingAddress)){
+                $disabled = true;
+            }
+        }
+
         $cartItems = Cart::getCartItems();
         $idsItems= Arr::pluck($cartItems,'product_id');
         $products = Product::query()->whereIn('id',$idsItems)->get();
@@ -21,7 +36,7 @@ class CartController extends Controller
             $totalItemsPrice += $product->price * $cartItems[$product->id]['quantity'];
         }
 
-        return view('cart.index', compact('cartItems' , 'products', 'totalItemsPrice'));
+        return view('cart.index', compact('cartItems' , 'products', 'totalItemsPrice','disabled'));
     }
 
     public function add(Request $request,Product $product){

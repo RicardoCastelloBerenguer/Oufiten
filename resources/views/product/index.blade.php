@@ -35,7 +35,7 @@
             </div>
             <div class="flex justify-between py-3 px-4">
                 <button class="btn-primary" @click="addToCart()">
-                    Add to Cart
+                    Añadir
                 </button>
             </div>
         </div>

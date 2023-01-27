@@ -8,6 +8,8 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductListResource;
 use App\Http\Resources\ProductResource;
 use App\Models\Api\Product;
+use App\Models\Order;
+use App\Models\OrderItem;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\URL;
@@ -115,6 +117,7 @@ class ProductController extends Controller
 
         return new ProductResource(($product));
     }
+
 
     /**
      * Remove the specified resource from storage.

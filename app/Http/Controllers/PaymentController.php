@@ -119,7 +119,7 @@ class PaymentController extends Controller
                 return view('payment.cancel',['message' => 'El pago no existe']);
             else if ($payment->status==PaymentStatus::Paid->value){
                 //return view('payment.success');
-                //return view('payment.success' , compact('session' , 'customer'));
+                return view('payment.success' , compact('session' , 'customer'));
             }
 
             $payment->status=PaymentStatus::Paid;

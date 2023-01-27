@@ -4,12 +4,16 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
+use App\Http\Resources\API\UserListResource;
 use App\Http\Resources\OrderListResource;
 use App\Http\Resources\OrderResource;
 use App\Http\Resources\ProductListResource;
+use App\Http\Resources\UserResource;
 use App\Mail\updateOrderEmail;
 use App\Models\Order;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class OrderController extends Controller
@@ -21,10 +25,20 @@ class OrderController extends Controller
         $sortBy = request('sortBy','created_at');
         $order = request('order','desc');
 
-        $query = Order::query();
-        if($search){
-            $query->where('id','like',"%{$search}%");
+
+        if($search && !is_null($search)){
+            $user = DB::table('users')
+                ->where('name', 'like', "%{$search}%")
+                ->get();
+            $userCollection = UserResource::collection($user)[0];
         }
+
+        $query = Order::query();
+
+        if($search){
+            $query->where('created_by','=',$userCollection->id);
+        }
+
         $query->orderBy($sortBy,$order);
         return OrderListResource::collection($query->paginate($perPage));
     }
