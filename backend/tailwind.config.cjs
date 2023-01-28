@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-/** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
         "./index.html",
@@ -19,12 +18,12 @@ module.exports = {
                     },
                 },
             },
+            animation: {
+                'fade-in-down': "fade-in-down 0.2s ease-in-out both",
+            },
         },
-        /*animation:{
-            'fade-in-down':"fade-in-down 0.2s ease-in-out both",
-        }*/
-    },
-    plugins: [
-        require('@tailwindcss/forms'),
-    ],
+        plugins: [
+            require('@tailwindcss/forms'),
+        ],
+    }
 }

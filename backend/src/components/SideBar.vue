@@ -19,16 +19,6 @@
                         <li class="rounded-sm">
                             <router-link :to="{name: 'app.customers'}" class="flex items-center p-2 space-x-3 rounded-md hover:bg-black/10"><UserGroupIcon class="w-6 h-6 mr-3"></UserGroupIcon>Clientes</router-link>
                         </li>
-                        <li class="rounded-sm">
-                            <a
-                                href="#"
-                                class="flex items-center p-2 space-x-3 rounded-md hover:bg-black/10"
-                            >
-                                <ChartBarIcon class="w-6 h-6" aria-hidden="true" />
-
-                                <span>Reportes</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>

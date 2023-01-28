@@ -94,7 +94,13 @@
                       ]"
                                                 @click="deleteProduct(product)"
                                             >
-                                                <TrashIcon
+
+                                                <TrashIcon v-if="product.show_catalogue"
+                                                    :active="active"
+                                                    class="mr-2 h-5 w-5 text-indigo-400"
+                                                    aria-hidden="true"
+                                                />
+                                                <ArrowPathIcon v-else
                                                     :active="active"
                                                     class="mr-2 h-5 w-5 text-indigo-400"
                                                     aria-hidden="true"
@@ -149,7 +155,7 @@
 </template>
 
 <script setup>
-import {ArrowDownIcon, TrashIcon , PencilSquareIcon,EllipsisVerticalIcon} from "@heroicons/vue/20/solid/index.js";
+import {ArrowDownIcon,ArrowPathIcon, TrashIcon , PencilSquareIcon,EllipsisVerticalIcon} from "@heroicons/vue/20/solid/index.js";
 import LoadingSpiner from "../../components/core/loadingSpiner.vue";
 import {computed, onMounted, ref} from "vue";
 import store from "../../store/index.js";
