@@ -33,7 +33,7 @@
                         <div x-data="{open: false}">
                             <button
                                 @click="open = true"
-                                class="btn-primary bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 py-1 px-2 flex items-center"
+                                class="btn-primary py-1 px-2 flex items-center border-2 border-dark-gray hover:border-2 bg-gray-200 text-dark-gray hover:bg-dark-gray hover:text-white hover:border-black"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -133,7 +133,7 @@
                         @if($order->status==\App\Enums\OrderStatus::Unpaid->value)
                             <form action="{{route('payment.resumeOrderPayment' , $order)}}" method="post">
                                 @csrf
-                                <button class="btn-primary py-1 px-2 flex items-center">
+                                <button class="btn-primary py-1 px-2 flex items-center border-2 border-dark-gray hover:border-2 bg-gray-200 text-dark-gray hover:bg-dark-gray hover:text-white hover:border-black">
                                     <svg
                                         xmlns="http://www.w3.org/2000/svg"
                                         class="h-6 w-6 mr-1"

@@ -4,21 +4,27 @@
     cartItemsCount : {{\App\Http\Helpers\Cart::getCartItemsCount()}}
     }"
     @cart-change.window = "cartItemsCount = $event.detail.count"
-    class="flex justify-between bg-slate-800 shadow-md text-white"
+    class=" flex justify-between bg-gray-200 shadow-md text-dark-gray border-b-2 border-dark-gray"
 >
     <div>
-        <a href="{{route('home')}}" class="block py-navbar-item pl-5"> Logo </a>
+        <a href="{{route('home')}}" class="block py-1 pl-5">
+            <img
+                src='http://localhost:8000/storage/images/Logo/logo.png'
+                alt=""
+                class="rounded-lg hover:scale-105 hover:rotate-1 transition-transform w-16 h-16"
+            />
+        </a>
     </div>
     <!-- Responsive Menu -->
     <div
-        class="block fixed z-10 top-0 bottom-0 height h-full w-[220px] transition-all bg-slate-900 md:hidden"
+        class="block fixed z-10 top-0 bottom-0 height h-full w-[220px] transition-all bg-gray-200 border-r-2 border-dark-gray md:hidden"
         :class="mobileMenuOpen ? 'left-0' : '-left-[220px]'"
     >
         <ul>
             <li>
                 <a
                     href="{{route('cart.index')}}"
-                    class="relative flex items-center justify-between py-2 px-3 transition-colors hover:bg-slate-800"
+                    class="relative flex items-center justify-between py-2 px-3 transition-colors hover:bg-dark-gray hover:text-white"
                 >
                     <div class="flex items-center">
                         <svg
@@ -42,7 +48,7 @@
                         x-show="cartItemsCount"
                         x-transition
                         x-text="cartItemsCount"
-                        class="py-[2px] px-[8px] rounded-full bg-red-500"
+                        class="py-[2px] px-[8px] rounded-full text-gray-200 bg-dark-gray"
                     ></small>
                     <!--/ Cart Items Counter -->
                 </a>
@@ -51,7 +57,7 @@
             <li x-data="{open: false}" class="relative">
                 <a
                     @click="open = !open"
-                    class="cursor-pointer flex justify-between items-center py-2 px-3 hover:bg-slate-800"
+                    class="cursor-pointer flex justify-between items-center py-2 px-3 hover:bg-dark-gray hover:text-white"
                 >
               <span class="flex items-center">
                 <svg
@@ -86,12 +92,12 @@
                 <ul
                     x-show="open"
                     x-transition
-                    class="z-10 right-0 bg-slate-800 py-2"
+                    class="z-10 right-0 bg-gray-200 border-t-2 border-b-2 border-dark-gray py-2 border-dashed"
                 >
                     <li>
                         <a
                             href="{{route('profile')}}"
-                            class="flex px-3 py-2 hover:bg-slate-900"
+                            class="flex px-3 py-2 hover:bg-dark-gray hover:text-white"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -113,7 +119,7 @@
                     <li class="hover:bg-slate-900">
                         <a
                             href="{{route('orders.index')}}"
-                            class="flex items-center px-3 py-2 hover:bg-slate-900"
+                            class="flex items-center px-3 py-2 hover:bg-dark-gray hover:text-white"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -132,11 +138,11 @@
                             Mis pedidos
                         </a>
                     </li>
-                    <li class="hover:bg-slate-900">
+                    <li class="hover:bg-dark-gray hover:text-dark-beige">
                         <form action="{{ route('logout') }}" method="post">
                             @csrf
                             <button type="submit"
-                                    class="flex w-full px-3 py-2 hover:bg-slate-900"
+                                    class="flex w-full px-3 py-2 hover:bg-dark-gray hover:text-white"
                             >
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -195,10 +201,25 @@
     <nav class="hidden md:block">
         <ul class="grid grid-flow-col items-center">
             <li>
+
+                <a href="{{route('home')}}" class="h-20 relative inline-flex items-center py-navbar-item px-navbar-item hover:bg-dark-gray hover:text-white">
+                    &nbsp;
+                    &nbsp;
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"  class="h-5 w-5 mr-2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                    </svg>
+                    Inicio
+                    &nbsp;
+                    &nbsp;
+                </a>
+            </li>
+            <li>
                 <a
                     href="{{route('cart.index')}}"
-                    class="relative inline-flex items-center py-navbar-item px-navbar-item hover:bg-slate-900"
+                    class="h-20 relative inline-flex items-center py-navbar-item px-navbar-item hover:bg-dark-gray hover:text-white"
                 >
+                    &nbsp;
+                    &nbsp;
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         class="h-5 w-5 mr-2"
@@ -219,17 +240,22 @@
                         x-transition
                         x-cloak
                         x-text="cartItemsCount"
-                        class="absolute z-[100] top-4 -right-3 py-[2px] px-[8px] rounded-full bg-red-500"
+                        class="absolute z-[100] top-4 py-[2px] px-[8px] rounded-full bg-dark-gray text-beige"
                     ></small>
+                    &nbsp;
+                    &nbsp;
+
                 </a>
             </li>
             @if(!Auth::guest())
                 <li x-data="{open: false}" class="relative">
                 <a
                     @click="open = !open"
-                    class="cursor-pointer flex items-center py-navbar-item px-navbar-item pr-5 hover:bg-slate-900"
+                    class="h-20 cursor-pointer flex items-center py-navbar-item px-navbar-item pr-5 hover:bg-dark-gray hover:text-white"
                 >
               <span class="flex items-center">
+                  &nbsp;
+                  &nbsp;
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
                     class="h-5 w-5 mr-2"
@@ -245,6 +271,8 @@
                   />
                 </svg>
                 Mi cuenta
+                  &nbsp;
+                    &nbsp;
               </span>
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -264,12 +292,12 @@
                     x-show="open"
                     x-transition
                     x-cloak
-                    class="absolute z-10 right-0 bg-slate-800 py-2 w-48"
+                    class="absolute z-10 right-0 bg-gray-200 border-l-2 border-b-2 border-dark-gray py-2 w-48 border-dashed"
                 >
                     <li>
                         <a
                             href="{{route('profile')}}"
-                            class="flex px-3 py-2 hover:bg-slate-900"
+                            class="flex px-3 py-2 hover:bg-dark-gray hover:text-white"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -291,7 +319,7 @@
                     <li>
                         <a
                             href="{{route('orders.index')}}"
-                            class="flex px-3 py-2 hover:bg-slate-900"
+                            class="flex px-3 py-2 hover:bg-dark-gray hover:text-white"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -314,7 +342,7 @@
                         <form action="{{ route('logout') }}" method="post">
                         @csrf
                         <button type="submit"
-                                class="flex w-full px-3 py-2 hover:bg-slate-900"
+                                class="flex w-full px-3 py-2 hover:bg-dark-gray hover:text-white"
                         >
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -340,7 +368,7 @@
             <li>
                 <a
                     href="{{route('login')}}"
-                    class="flex items-center py-navbar-item px-navbar-item hover:bg-slate-900"
+                    class="h-20 flex items-center py-navbar-item px-navbar-item hover:bg-dark-gray hover:text-white"
                 >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"

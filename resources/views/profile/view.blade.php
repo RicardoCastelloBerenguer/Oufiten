@@ -9,7 +9,7 @@
         }
     }" class="container mx-auto lg:w-2/3 p-5">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 items-start">
-            <div class="bg-white p-3 shadow rounded-lg md:col-span-2">
+            <div class="bg-white p-3 shadow rounded-lg md:col-span-2 border-dark-gray border-2">
                 <form action="{{route('profile.update')}}" method="post"
                     x-data="{
                         countries:{{json_encode($countries)}},
@@ -261,7 +261,7 @@
                     <x-button class="w-full">Actualizar Perfil</x-button>
                 </form>
             </div>
-            <div class="bg-white p-3 shadow rounded-lg">
+            <div class="bg-white p-3 shadow rounded-lg border-dark-gray border-2">
                 <form action="{{route('profile.updatePassword')}}" method="post">
                     @csrf
                     <h2>Actualizar Contraseña</h2>

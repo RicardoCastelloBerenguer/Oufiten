@@ -23,7 +23,7 @@
              get cartTotal() {
                  return this.cartItems.reduce((accum,next) => accum + next.price * next.quantity,0).toFixed(2)
              }
-             }" class="bg-white p-4 rounded-lg shadow" >
+             }" class="bg-white p-4 rounded-lg shadow border-2 border-dark-gray" >
 
 
             <template x-if="cartItems.length">
@@ -58,14 +58,14 @@
                                         <a
                                             href="#"
                                             @click.prevent="removeItemFromCart()"
-                                            class="text-purple-600 hover:text-purple-500"
+                                            class="text-dark.gray hover:text-dark-beige hover:underline"
                                         >Quitar</a
                                         >
                                     </div>
                                 </div>
                             </div>
                             <!--/ Product Item -->
-                            <hr class="my-5"/>
+                            <hr class="my-5 text-dark-gray"/>
                         </div>
                     </template>
                     <!-- Product Item -->
@@ -81,15 +81,14 @@
                         <form action="{{route('cart.payment')}}" method="post">
                             @csrf
                             @if(!$disabled)
-                            <button if type="submit" class="btn-primary w-full py-3 text-lg">
+                            <button if type="submit" class="btn-primary w-full py-3 text-lg btn-primary border-2 border-dark-gray hover:border-2 bg-gray-200 text-dark-gray hover:bg-dark-gray hover:text-white hover:border-black">
                                 Proceder al pago
                             </button>
                             @else
                                 <div class="py-3 text-lg flex justify-center">
                                     <a
                                         href="{{route('profile')}}"
-                                        class="text-center btn-primary w-full py-3 text-lg">
-
+                                        class="text-center btn-primary w-full py-3 text-lg btn-primary border-2 border-dark-gray hover:border-2 bg-gray-200 text-dark-gray hover:bg-dark-gray hover:text-white hover:border-black">
                                         Debes rellenar tus datos de envío antes de proceder al pago
                                     </a>
                                 </div>

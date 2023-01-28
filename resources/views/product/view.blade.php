@@ -86,8 +86,8 @@
                         <template x-for="image in images">
                             <a
                                 @click.prevent="activeImage = image"
-                                class="cursor-pointer w-[80px] border border-gray-300 hover:border-purple-500 flex items-center justify-center"
-                                :class="{'border-purple-600': activeImage === image}"
+                                class="cursor-pointer w-[80px] border border-gray-300 hover:border-dark-gray flex items-center justify-center"
+                                :class="{'border-dark-gray': activeImage === image}"
                             >
                                 <img :src="image" alt="" class="w-auto max-auto max-h-full"/>
                             </a>
@@ -159,7 +159,7 @@
                     </div>
                     <a
                         href="#"
-                        class="ml-3 font-normal text-purple-600 hover:text-purple-500"
+                        class="cursor-default ml-3 font-normal text-dark-gray hover:underline"
                     >
                         67 valoraciones
                     </a>
@@ -174,12 +174,12 @@
                         min="1"
                         x-ref="quantityEl"
                         value="1"
-                        class="w-32 focus:border-purple-500 focus:outline-none rounded"
+                        class="w-32 border-dark-beige focus:border-dark-gray rounded"
                     />
                 </div>
                     <button
                         @click="addToCart($refs.quantityEl.value)"
-                        class="btn-primary py-4 text-lg flex justify-center min-w-0 w-full mb-6"
+                        class="btn-primary text-lg flex justify-center min-w-0 w-full mb-6 border-2 border-dark-gray hover:border-2 bg-gray-200 text-dark-gray hover:bg-dark-gray hover:text-white hover:border-gray-200"
                         :disabled="{{$product->show_catalogue==0}}"
                     >
                         <svg
@@ -210,7 +210,7 @@
                         <a
                             @click="expanded = !expanded"
                             href="javascript:void(0)"
-                            class="text-purple-500 hover:text-purple-700"
+                            class="text-dark-gray hover:underline"
                             x-text="expanded ? 'Leer menos' : 'Leer más'"
                         ></a>
                     </p>

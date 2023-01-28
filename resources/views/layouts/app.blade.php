@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html class="bg-white" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -18,13 +18,13 @@
 </head>
 <body>
 
-@include('layouts.navigation')
+@include('layouts.navigationRemastered')
 
-<main class="p-5">
+<main class="bg-white p-5 flex flex-col min-h-screen">
     {{ $slot }}
 </main>
 
-
+@include('layouts.footer')
 
 <!-- Toast -->
 <div

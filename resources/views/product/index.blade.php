@@ -1,12 +1,12 @@
 <x-app-layout>
     <?php if ($products->count() === 0): ?>
-    <div class="text-center text-gray-600 py-16 text-xl">
+    <div class="text-center text-white py-16 text-xl">
         There are no products published
     </div>
     <?php else: ?>
     <div class="grid gap-8 grig-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 p-5">
-    @foreach($products as $product)
-        @if($product->show_catalogue)
+        @foreach($products as $product)
+            @if($product->show_catalogue)
                 <!-- Product Item -->
                 <div
                     x-data="productItem({{ json_encode([
@@ -17,7 +17,7 @@
                         'price' => $product->price,
                         'addToCartUrl' => route('cart.add', $product)
             ]) }})"
-                    class="border border-1 border-gray-200 rounded-md hover:border-purple-600 transition-colors bg-white">
+                    class="border border-1 border-dark-beige rounded-md hover:border-dark-gray transition-colors bg-dark-gray text-white">
 
                     <a href="{{route('product.view', $product)}}" class="block overflow-hidden">
                         <img
@@ -32,16 +32,16 @@
                                 {{$product->title}}
                             </a>
                         </h3>
-                        <h5 class="font-bold">€{{$product->price}}</h5>
+                        <h5 class="font-bold">{{$product->price}}€</h5>
                     </div>
                     <div class="flex justify-between py-3 px-4">
-                        <button class="btn-primary" @click="addToCart()">
+                        <button class="btn-primary border-2 hover:border-2 bg-gray-200 text-dark-gray hover:bg-dark-gray hover:text-white hover:border-gray-200" @click="addToCart()">
                             Añadir
                         </button>
                     </div>
                 </div>
-        @endif
-    @endforeach
+            @endif
+        @endforeach
     </div>
     {{$products->links()}}
     @endif
