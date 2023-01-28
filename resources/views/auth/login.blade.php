@@ -9,7 +9,7 @@
             or
             <a
                 href="{{route('register')}}"
-                class="text-sm text-purple-700 hover:text-purple-600"
+                class="font-semibold text-sm text-dark-gray hover:underline"
             >Crear una cuenta nueva</a
             >
         </p>
@@ -41,14 +41,14 @@
                     id="loginRememberMe"
                     type="checkbox"
                     name="remember"
-                    class="mr-3 rounded border-gray-300 text-purple-500 focus:ring-purple-500"
+                    class="mr-3 rounded border-gray-300 text-dark-gray focus:ring-black"
                 />
                 <label for="loginRememberMe">Recuerdame</label>
             </div>
-            <a href="{{route('password.request')}}" class="text-sm text-purple-700 hover:text-purple-600">Has olvidado la contraseña?</a>
+            <a href="{{route('password.request')}}" class="font-semibold text-sm text-dark-gray hover:underline">Has olvidado la contraseña?</a>
         </div>
         <button
-            class="btn-primary bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 w-full"
+            class="btn-primary border-2 border-dark-gray hover:border-2 bg-gray-200 text-dark-gray hover:bg-dark-gray hover:text-white hover:border-black"
         >
             Iniciar sesión
         </button>

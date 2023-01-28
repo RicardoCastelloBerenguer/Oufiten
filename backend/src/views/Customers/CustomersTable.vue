@@ -27,7 +27,6 @@
                     <TableHead @orderProductsBy="sortCustomers" field="first_name" :order="order" :sortBy="sortBy">Nombre</TableHead>
                     <TableHead @orderProductsBy="sortCustomers" field="last_name" :order="order" :sortBy="sortBy">Apellido</TableHead>
                     <TableHead @orderProductsBy="sortCustomers" field="phone" :order="order" :sortBy="sortBy">Teléfono</TableHead>
-                    <TableHead field="" :order="order" :sortBy="sortBy">Estado</TableHead>
                     <TableHead @orderProductsBy="sortCustomers" field="created_at" :order="order" :sortBy="sortBy">Fecha de creación</TableHead>
                     <TableHead :order="order" :sortBy="sortBy" field=""> Acción </TableHead>
                 </tr>
@@ -39,7 +38,6 @@
                     <td class="border-b p-2 max-w-[250px] whitespace-nowrap overflow-hidden text-ellipsis">{{ customer.first_name }}</td>
                     <td class="border-b p-2">{{customer.last_name}}</td>
                     <td class="border-b p-2">{{customer.phone}}</td>
-                    <td class="border-b p-2">{{customer.status}}</td>
                     <td class="border-b p-2">{{customer.created_at}}</td>
                     <td class="border-b p-2">
                         <router-link :to="{name: 'app.customers.view', params:{id:customer.id}}" :class="[

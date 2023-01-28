@@ -25,10 +25,12 @@ class CountrySeeder extends Seeder
         'ARG' => 'Aragon'
         ];
         $countries = [
-            ['code' => 'esp', 'name' => 'Spain', 'community' => json_encode($spainCA)],
-            ['code' => 'fra', 'name' => 'France', 'community' => null],
+            ['code' => 'esp', 'name' => 'España', 'community' => json_encode($spainCA)],
+            ['code' => 'fra', 'name' => 'Francia', 'community' => null],
             ['code' => 'por', 'name' => 'Portugal', 'community' => null],
-            ['code' => 'ger', 'name' => 'Germany', 'community' => null],
+            ['code' => 'ger', 'name' => 'Alemania', 'community' => null],
+            ['code' => 'ger', 'name' => 'Andorra', 'community' => null],
+            ['code' => 'ger', 'name' => 'Italia', 'community' => null],
         ];
         Country::insert($countries);
     }

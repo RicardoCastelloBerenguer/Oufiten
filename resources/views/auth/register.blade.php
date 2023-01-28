@@ -11,7 +11,7 @@
             o
             <a
                 href="{{route('login')}}"
-                class="text-sm text-purple-700 hover:text-purple-600"
+                class="font-semibold text-dark-gray text-sm hover:underline"
             >Inicia sesión con una cuenta existente</a
             >
         </p>
@@ -52,7 +52,7 @@
         </div>
 
         <button
-            class="btn-primary bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 w-full"
+            class="btn-primary border-2 border-dark-gray hover:border-2 bg-gray-200 text-dark-gray hover:bg-dark-gray hover:text-white hover:border-black w-full"
         >
             Registrarse
         </button>

@@ -9,7 +9,7 @@
             or
             <a
                 href="{{route('login')}}"
-                class="text-purple-600 hover:text-purple-500"
+                class="font-semibold text-dark-gray hover:underline"
             >Iniciar sesión con una cuenta existente</a
             >
         </p>
@@ -30,7 +30,7 @@
             />
         </div>
         <button
-            class="btn-primary bg-emerald-500 hover:bg-emerald-600 active:bg-emerald-700 w-full"
+            class="btn-primary border-2 border-dark-gray hover:border-2 bg-gray-200 text-dark-gray hover:bg-dark-gray hover:text-white hover:border-black w-full"
         >
             Enviar
         </button>

@@ -4,14 +4,14 @@
                 <input type="hidden" name="remember" value="true" />
                 <div class="-space-y-px rounded-md shadow-sm">
                     <div>
-                        <label for="email-address" class="sr-only">Email address</label>
-                        <input id="email-address" name="email" type="email" autocomplete="email" required="" class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Email address" />
+                        <label for="email-address" class="sr-only">Correo Electrónico</label>
+                        <input id="email-address" name="email" type="email" autocomplete="email" required="" class="relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" placeholder="Correo Electrónico" />
                     </div>
                 </div>
 
                 <div class="flex items-center justify-between">
                     <div class="text-sm">
-                        <a href="/request-password" class="font-medium text-indigo-600 hover:text-indigo-500">Forgot your password?</a>
+                        <a href="/request-password" class="font-medium text-indigo-600 hover:text-indigo-500">Has olvidado tu contraseña?</a>
                     </div>
                 </div>
 
@@ -20,7 +20,7 @@
             <span class="absolute inset-y-0 left-0 flex items-center pl-3">
               <LockClosedIcon class="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" aria-hidden="true" />
             </span>
-                        Sign in
+                        Regístrate
                     </button>
                 </div>
             </form>

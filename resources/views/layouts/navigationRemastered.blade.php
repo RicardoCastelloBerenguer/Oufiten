@@ -390,7 +390,7 @@
             <li>
                 <a
                     href="{{route('register')}}"
-                    class="inline-flex items-center text-white bg-emerald-600 py-2 px-3 rounded shadow-md hover:bg-emerald-700 active:bg-emerald-800 transition-colors mx-5"
+                    class="inline-flex items-center py-2 px-3 rounded shadow-md border-2 border-dark-gray hover:border-2 bg-dark-gray text-gray-200 hover:text-white hover:border-black transition-colors mx-5"
                 >
                     Registro
                 </a>
