@@ -9,7 +9,7 @@ use App\Http\Requests\UserCreateRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\API\UserListResource;
 use App\Http\Resources\UserResource;
-use App\Models\Api\User;
+use App\Models\API\User;
 use App\Models\Customer;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;

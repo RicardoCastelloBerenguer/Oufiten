@@ -7,7 +7,7 @@ use App\Http\Requests\ProductRequest;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductListResource;
 use App\Http\Resources\ProductResource;
-use App\Models\Api\Product;
+use App\Models\API\Product;
 use App\Models\Order;
 use App\Models\OrderItem;
 use Illuminate\Http\UploadedFile;
