@@ -1,8 +1,9 @@
 <x-app-layout>
 
     <div class="container lg:w-2/3 xl:w-2/3 mx-auto">
-        <h1 class="text-3xl font-bold mb-6">My Orders</h1>
+        <h1 class="text-3xl font-bold mb-6">Mis pedidos</h1>
         <div class="bg-white p-3 rounded-md shadow-md">
+            @if(count($orders)>0)
             <table class="table table-auto w-full">
                 <thead class="border-b-2">
                 <tr class="text-left">
@@ -157,6 +158,9 @@
                 @endforeach
                 </tbody>
             </table>
+            @else
+                <h2 class="text-2xl text-center mb-6">Aún no tienes pedidos registrados</h2>
+            @endif
         </div>
         <div class="mt-2">
             {{$orders->links()}}

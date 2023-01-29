@@ -16,8 +16,6 @@
             >
         </p>
 
-        <x-auth-validation-errors class="mb-4" :errors="$errors"></x-auth-validation-errors>
-
         <div class="mb-4">
             <x-input
                 placeholder="Tu nombre"

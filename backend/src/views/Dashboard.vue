@@ -28,7 +28,7 @@
         <div class="animate-fade-in-down bg-white flex items-center flex-col justify-center py-6 px-4 rounded-lg shadow-lg" style="animation-delay: 0.2s">
 
             <template v-if="!loading.ordersPaidCount">
-                <label class="font-semibold">Pedidos realizados</label>
+                <label class="font-semibold">Pedidos Pagados</label>
                 <span class="text-3xl">{{ ordersPaidCount }}</span>
             </template>
             <template v-else>

@@ -59,7 +59,7 @@ document.addEventListener("alpine:init", () => {
                 post(this.product.addToCartUrl,{quantity}).then(result => {
                     this.$dispatch('cart-change',{count:result.count})
                     this.$dispatch("notify", {
-                        message : "The item was added to the cart",
+                        message : "El producto se ha añadido al carrito",
                     });
                 }).catch(error => {
                     console.log(error);
@@ -68,7 +68,7 @@ document.addEventListener("alpine:init", () => {
             removeItemFromCart() {
                 post(this.product.removeUrl).then(result=>{
                     this.$dispatch("notify", {
-                        message : "The item was removed from the cart",
+                        message : "El producto se ha quitado del carrito",
                     });
                     this.$dispatch("cart-change",{count:result.count})
                     this.cartItems = this.cartItems.filter(p => p.id != product.id)
@@ -78,7 +78,7 @@ document.addEventListener("alpine:init", () => {
                 post(this.product.updateQuantityUrl,{quantity:product.quantity}).then(result => {
                     this.$dispatch("cart-change",{count:result.count});
                     this.$dispatch("notify",{
-                        message:"The item quantity was changed",
+                        message:"Cantidad del producto cambiada",
                     });
                 });
             }

@@ -46,7 +46,7 @@
                                     </div>
                                     <div class="flex justify-between items-center">
                                         <div class="flex items-center">
-                                            Qty:
+                                            Cantidad:
                                             <input
                                                 type="number"
                                                 min="1"

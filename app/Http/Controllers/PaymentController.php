@@ -118,8 +118,8 @@ class PaymentController extends Controller
             if(!$payment)
                 return view('payment.cancel',['message' => 'El pago no existe']);
             else if ($payment->status==PaymentStatus::Paid->value){
-                //return view('payment.success');
-                return view('payment.success' , compact('session' , 'customer'));
+                $message = 'El pago de este pedido ya se había efectuado con anterioridad haga click en el botón para volver';
+                return view('payment.success' , compact('session' , 'customer' , 'message'));
             }
 
             $payment->status=PaymentStatus::Paid;
@@ -178,6 +178,10 @@ class PaymentController extends Controller
             'cancel_url' => route('payment.cancel',[],'yes'),
             'customer_creation' => 'always'
         ]);
+
+        $order->status = OrderStatus::Paid;
+
+        $order->update();
 
         $payment = $order->payment;
 
@@ -238,7 +242,9 @@ class PaymentController extends Controller
 
                 $adminUsers = User::where('is_admin',1)->get();
 
-                Mail::to([...$adminUsers,$order->user])->send(new newOrderEmail($order));
+                foreach ([...$adminUsers, $order->user] as $user){
+                    Mail::to($user)->send(new newOrderEmail($order,$user));
+                }
 
             // ... handle other event types
             default:

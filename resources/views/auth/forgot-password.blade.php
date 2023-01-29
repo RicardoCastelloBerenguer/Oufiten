@@ -24,7 +24,7 @@
                 type="email"
                 name="email"
                 :value="old('email')"
-                placeholder="Your email address"
+                placeholder="Tu correo electrónico"
                 autofocus
                 required
             />

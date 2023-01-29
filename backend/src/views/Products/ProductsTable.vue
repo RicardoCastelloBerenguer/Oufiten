@@ -118,7 +118,7 @@
             </table>
             <div class="flex justify-between items-center mt-5">
                 <span>
-                    Mostrando del {{ products.from }} al {{ products.to }}
+                    Mostrando desde el pedido {{ products.from }}  hasta el {{ products.to }}
                 </span>
                 <nav
                     v-if="products.total > products.limit"

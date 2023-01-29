@@ -2,7 +2,7 @@
     <div class="bg-white p-4 rounded-lg shadow animate-fade-in-down">
         <div class="flex justify-between border-b-2 pb-3">
             <div class="flex items-center">
-                <span class="whitespace-nowrap mr-3">Per Page</span>
+                <span class="whitespace-nowrap mr-3">Por página</span>
                 <select @change="getOrders(null)" v-model="perPage"
                         class="appaerance-none relative block w-24 px-3 py-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">">
                     <option selected value="5" >5</option>
@@ -14,7 +14,7 @@
             </div>
             <div>
                 <input v-model="search" @change="getOrders(null)"
-                       placeholder="Type to Search..."
+                       placeholder="Búsqueda..."
                        class=" border-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
             </div>
         </div>
@@ -58,7 +58,7 @@
             </table>
             <div class="flex justify-between items-center mt-5">
                 <span>
-                    Showing from {{ orders.from }} to {{ orders.to }}
+                    Mostrando desde el pedido {{ orders.from }} hasta el {{ orders.to }}
                 </span>
                 <nav
                     v-if="orders.total > orders.limit"

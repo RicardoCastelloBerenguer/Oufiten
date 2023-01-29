@@ -1,6 +1,6 @@
 <template>
     <div class="flex items-center justify-between mb-3 " >
-        <h1 class="text-3xl font semibold">Orders</h1>
+        <h1 class="text-3xl font semibold">Pedidos</h1>
     </div>
     <!--<ProductsModal @close="clearData" v-model="showModal" :product="productModel" />!-->
     <OrdersTable @clickView="viewOrder"/>
