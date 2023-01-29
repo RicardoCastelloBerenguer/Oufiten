@@ -19,8 +19,8 @@ return new class extends Migration
             $table->decimal('total_price',20,2);
             $table->string('status',45);
             $table->timestamps();
-            $table->foreignIdFor('created_by')->references('id')->on('users')->nullable();
-            $table->foreignIdFor('updated_by')->references('id')->on('users')->nullable();
+            $table->foreignIdFor(User::class,'created_by')->references('id')->on('users')->nullable();
+            $table->foreignIdFor(User::class,'updated_by')->references('id')->on('users')->nullable();
 
 
 

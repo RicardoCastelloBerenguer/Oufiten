@@ -29,8 +29,8 @@ class CountrySeeder extends Seeder
             ['code' => 'fra', 'name' => 'Francia', 'community' => null],
             ['code' => 'por', 'name' => 'Portugal', 'community' => null],
             ['code' => 'ger', 'name' => 'Alemania', 'community' => null],
-            ['code' => 'ger', 'name' => 'Andorra', 'community' => null],
-            ['code' => 'ger', 'name' => 'Italia', 'community' => null],
+            ['code' => 'and', 'name' => 'Andorra', 'community' => null],
+            ['code' => 'itl', 'name' => 'Italia', 'community' => null],
         ];
         Country::insert($countries);
     }
