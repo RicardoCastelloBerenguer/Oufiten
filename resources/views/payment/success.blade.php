@@ -8,7 +8,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <h1 class="text-4xl font-bold">Gracias !</h1>
-                @if($message)
+                @if(!isset($message))
                 <p>Gracias por efectuar su compra con nosotros tenga un buen día!.</p>
                 @else
                     <p>{{$message}}</p>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Enums\PaymentStatus;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\OrderRequest;
 use App\Http\Resources\API\UserListResource;
@@ -53,6 +54,15 @@ class OrderController extends Controller
         $data = $request->validated();
 
         $order->update($data);
+
+        if($data['status'] == 'paid')
+        $order->payment->status=PaymentStatus::Paid;
+        else if($data['status'] == 'cancelled')
+        $order->payment->status=PaymentStatus::Pending;
+        else
+        $order->payment->status=PaymentStatus::Pending;
+
+        $order->payment->update();
 
         Mail::to($order->user)->send(new updateOrderEmail($order));
 

@@ -34,7 +34,7 @@ class NewOrderEmail extends Mailable
     public function envelope()
     {
         return new Envelope(
-            from: new Address('hello@example.com', 'Laravel TFG'),
+            from: new Address('info@oufiten.shop', 'oufiten.shop'),
             subject: 'Nuevo pedido',
         );
     }

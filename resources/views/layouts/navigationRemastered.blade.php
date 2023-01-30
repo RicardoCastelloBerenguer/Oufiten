@@ -9,7 +9,7 @@
     <div>
         <a href="{{route('home')}}" class="block py-1 pl-5">
             <img
-                src='http://localhost:8000/storage/images/Logo/logo.png'
+                src='https://oufiten.shop/storage/images/Logo/logo.png'
                 alt=""
                 class="rounded-lg hover:scale-105 hover:rotate-1 transition-transform w-16 h-16"
             />

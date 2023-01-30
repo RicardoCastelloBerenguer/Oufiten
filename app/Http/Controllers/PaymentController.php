@@ -118,8 +118,7 @@ class PaymentController extends Controller
             if(!$payment)
                 return view('payment.cancel',['message' => 'El pago no existe']);
             else if ($payment->status==PaymentStatus::Paid->value){
-                $message = 'El pago de este pedido ya se había efectuado con anterioridad haga click en el botón para volver';
-                return view('payment.success' , compact('session' , 'customer' , 'message'));
+                return view('payment.cancel',['message' => 'El pago de este pedido ya se había efectuado con anterioridad']);
             }
 
             $payment->status=PaymentStatus::Paid;
@@ -179,15 +178,8 @@ class PaymentController extends Controller
             'customer_creation' => 'always'
         ]);
 
-        $order->status = OrderStatus::Paid;
-
-        $order->update();
-
-        $payment = $order->payment;
-
-        $payment->session_id = $checkout_session->id;
-
-        $payment->update();
+        $order->payment->session_id = $checkout_session->id;
+        $order->payment->save();
 
         return redirect($checkout_session->url);
     }
@@ -210,7 +202,7 @@ class PaymentController extends Controller
             return response('' , 401);
         } catch (\Stripe\Exception\SignatureVerificationException $e) {
             // Invalid signature
-            return response('' , 402);
+            return response($e , 402);
         }
 
 // Handle the event
