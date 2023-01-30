@@ -18,13 +18,16 @@ class CartController extends Controller
 
         $disabled=false;
 
-        if($user){
+        if($user->customer){
             $customerShippingAddress = $user->customer->shippingAddress;
             $customerBillingAddress = $user->customer->billingAddress;
 
             if(is_null($customerShippingAddress) || is_null($customerBillingAddress)){
                 $disabled = true;
             }
+        }
+        else{
+            $disabled = true;
         }
 
         $cartItems = Cart::getCartItems();

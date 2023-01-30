@@ -59,12 +59,12 @@ class UserController extends Controller
         $customer = new Customer();
 
         $names =  explode(" " , $user->name);
-        /*$customer->user_id=$user->id;
+        $customer->user_id=$user->id;
         $customer->first_name = $names[0];
         $customer->last_name = $names[1] ?? '';
         $customer->created_by=$request->user()->id;
 
-        $customer->save();*/
+        $customer->save();
 
         return new UserResource($user);
     }
@@ -102,6 +102,8 @@ class UserController extends Controller
                 return response(['error' => 'El usuario contiene datos de pedidos']);
             }
             $user->delete();
+            
+            if($user->customer)
             $user->customer->delete();
         }catch (\Exception $e){
             return response(['message' => $e]);

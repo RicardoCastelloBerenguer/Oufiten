@@ -136,7 +136,6 @@ function onSubmit(){
     {
         store.dispatch('createUser',user.value).then(response => {
             if(response.status >= 200 && response.status <= 300){
-                debugger;
                 loading.value=false;
                 store.commit('showToast',['El usuario ha sido creado correctamente' , 'success'])
                 store.dispatch('getUsers');

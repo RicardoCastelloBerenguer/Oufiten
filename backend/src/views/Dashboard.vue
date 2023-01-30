@@ -53,7 +53,38 @@
 
     <div class="grid grid-cols-1 md:grid-flow-col grid-rows-2 md:grid-cols-3 md:grid-rows-2 gap-4">
 
-        
+        <div class="col-span-2 row-span-2 bg-white py-6 px-4 rounded-lg shadow-lg flex flex-col">
+            <template v-if="!loading.latestOrders">
+                <label class="font-semibold mb-4">Últimos pedidos</label>
+                <table class="table-auto w-full">
+                    <thead>
+                    <tr>
+                        <TableHead field="">Id</TableHead>
+                        <TableHead field="">Cliente</TableHead>
+                        <TableHead field="">Estado</TableHead>
+                        <TableHead field="">Precio Total</TableHead>
+                        <TableHead field="">Hora del Pedido</TableHead>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <!--class="animate-fade-in-down"!-->
+                    <tr v-for="(order,index) of latestOrders"  :style="{'animation-delay': `${index*0.1}s`}">
+                        <td class="border-b p-2">{{order.id}}</td>
+                        <td class="border-b p-2" >{{order.user.name}}</td>
+                        <td class="border-b p-2 ">
+                            <OrderStatus :order="order" />
+                        </td>
+                        <td class="border-b p-2">{{order.total_price}} €</td>
+                        <td class="border-b p-2">{{order.updated_at}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </template>
+            <template v-else>
+                <LoadingSpiner text=''/>
+            </template>
+
+        </div>
 
         <div class="col-span-2 md:col-span-1 bg-white flex items-center flex-col justify-center py-6 px-4 rounded-lg shadow-lg">
             <template v-if="!loading.ordersByCountry">

@@ -233,10 +233,12 @@ class PaymentController extends Controller
                 $order->update();
 
                 $adminUsers = User::where('is_admin',1)->get();
-
+                
                 foreach ([...$adminUsers, $order->user] as $user){
                     Mail::to($user)->send(new newOrderEmail($order,$user));
                 }
+                
+                
 
             // ... handle other event types
             default:

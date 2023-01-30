@@ -85,7 +85,13 @@ class CustomerController extends Controller
         $shippingData = $customerData['shippingAddress'];
         $billingData = $customerData['billingAddress'];
 
+
+        if ($customerData['email']){
+            $customer->user->email=$customerData['email'];
+        }
+        
         $customer->update($customerData);
+        $customer->user->update();
 
         if ($customer->shippingAddress) {
             $customer->shippingAddress->update($shippingData);

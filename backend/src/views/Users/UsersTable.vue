@@ -24,7 +24,7 @@
                 <thead>
                 <tr>
                     <TableHead @orderProductsBy="sortUsers" field="id" :order="order" :sortBy="sortBy">Id</TableHead>
-                    <TableHead @orderProductsBy="sortUsers" field="name" :order="order" :sortBy="sortBy">Nombre</TableHead>
+                    <TableHead @orderProductsBy="sortUsers" field="name" :order="order" :sortBy="sortBy">Nombre de usuario</TableHead>
                     <TableHead @orderProductsBy="sortUsers" field="email" :order="order" :sortBy="sortBy">Email</TableHead>
                     <TableHead @orderProductsBy="sortUsers" field="created_at" :order="order" :sortBy="sortBy">Fecha de creación</TableHead>
                     <TableHead :order="order" :sortBy="sortBy" field=""> Acciones </TableHead>

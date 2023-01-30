@@ -16,7 +16,7 @@
             <Spiner></Spiner>
         </div>
     </div>
-    <Toast></Toast>
+    <Toast v-if="toast.show"></Toast>
 </template>
 
 <script setup>
@@ -29,6 +29,7 @@ import Toast from "./core/Toast.vue";
 
 const sidebarOpened = ref(true);
 const currentUser = computed(() => store.state.user.data);
+const toast = computed(() => store.state.toast)
 
 function toggleSidebar(){
     sidebarOpened.value=!sidebarOpened.value;
